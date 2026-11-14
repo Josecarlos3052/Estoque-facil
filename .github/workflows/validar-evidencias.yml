@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   validar-e-gerar:
-    if: github.event_name != 'push' || github.event.head_commit.message != 'chore: corrigir autoria historica'
+    if: "${{ github.event_name != 'push' || (github.event.head_commit.message != 'chore: corrigir autoria historica' && github.event.head_commit.message != 'chore: corrigir sintaxe do fluxo de autoria') }}"
     runs-on: ubuntu-latest
     steps:
       - name: Baixar repositório
