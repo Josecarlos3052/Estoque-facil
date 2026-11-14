@@ -1,0 +1,10 @@
+ROTEIRO DE APRESENTAÇÃO - ESTOQUEFÁCIL (aprox. 55 segundos)
+
+0-07s — "Olá! Este é o EstoqueFácil, meu projeto de Análise e Projeto de Sistemas, pensado para controlar o estoque de uma pequena loja de panelas."
+07-16s — "Na visão geral, o sistema exibe quantos produtos existem, quantas unidades estão disponíveis, o valor estimado e os alertas de estoque baixo."
+16-27s — "É possível cadastrar produtos informando nome, código SKU, categoria, preço, estoque inicial e quantidade mínima."
+27-40s — "Também consigo registrar entradas e saídas. O sistema impede uma saída maior que o saldo, preservando a consistência do estoque."
+40-49s — "A busca permite localizar produtos rapidamente, e o filtro mostra quais itens precisam de reposição."
+49-55s — "As movimentações são registradas, os dados ficam salvos no navegador e o código está organizado e versionado para consulta no GitHub. Obrigado!"
+
+Dica: fale naturalmente enquanto mostra a tela. Use a versão MP4 sem áudio como base visual; se preferir, grave sua narração e substitua a trilha.

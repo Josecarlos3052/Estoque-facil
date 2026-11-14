@@ -1,0 +1,17 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {validateProduct, createProduct, updateProduct, moveStock, getMetrics, searchProducts, toCSV, SAMPLE_PRODUCTS} from '../src/stock.js';
+const input = {name:'Panela básica', sku:'PAN-300', category:'Panelas', price:49.9, stock:6, minimum:2};
+test('RF01 - produto válido é cadastrado', () => {const p=createProduct(input,[], 'id01'); assert.equal(p.sku,'PAN-300'); assert.equal(p.stock,6)});
+test('RN01 - impede SKU repetido', () => assert.throws(() => validateProduct({...input,sku:'PAN-024'}, SAMPLE_PRODUCTS), /Já existe/));
+test('RN02 - preço não pode ser negativo', () => assert.throws(() => validateProduct({...input,price:-1}), /Preço/));
+test('RN03 - estoque inicial inteiro e não negativo', () => assert.throws(() => validateProduct({...input,stock:2.5}), /Estoque/));
+test('RF02 - permite editar nome, sem alterar saldo por edição', () => {const result=updateProduct(SAMPLE_PRODUCTS,'p-101',{...input,name:'Panela premium'});assert.equal(result.find(p=>p.id==='p-101').name,'Panela premium');assert.equal(result.find(p=>p.id==='p-101').stock,18)});
+test('RF03 - registra entrada e atualiza saldo', () => {const result=moveStock(SAMPLE_PRODUCTS,'p-102','ENTRADA',8,'m01');assert.equal(result.products.find(p=>p.id==='p-102').stock,11);assert.equal(result.movement.type,'ENTRADA')});
+test('RF04 - registra saída e atualiza saldo', () => {const result=moveStock(SAMPLE_PRODUCTS,'p-101','SAÍDA',4,'m02');assert.equal(result.products.find(p=>p.id==='p-101').stock,14)});
+test('RN04 - não permite saída maior que o saldo', () => assert.throws(() => moveStock(SAMPLE_PRODUCTS,'p-102','SAÍDA',4,'m03'),/Saldo insuficiente/));
+test('RN05 - rejeita quantidade zero e fracionada', () => {assert.throws(() => moveStock(SAMPLE_PRODUCTS,'p-102','ENTRADA',0,'m04'));assert.throws(() => moveStock(SAMPLE_PRODUCTS,'p-102','ENTRADA',1.5,'m05'))});
+test('RF05 - busca por SKU ou nome sem diferença de maiúsculas', () => {assert.equal(searchProducts(SAMPLE_PRODUCTS,'pan-024').length,1);assert.equal(searchProducts(SAMPLE_PRODUCTS,'frigideira').length,1)});
+test('RF06 - filtra produtos com estoque baixo', () => assert.deepEqual(searchProducts(SAMPLE_PRODUCTS,'',true).map(p=>p.id),['p-102']));
+test('RF07 - métricas calculadas corretamente', () => {const m=getMetrics(SAMPLE_PRODUCTS);assert.equal(m.products,4);assert.equal(m.units,40);assert.equal(m.low,1)});
+test('RF08 - exporta CSV delimitado por ponto e vírgula', () => {const csv=toCSV(SAMPLE_PRODUCTS);assert.ok(csv.includes('PAN-024'));assert.ok(csv.includes('"SKU";"Produto"'))});
