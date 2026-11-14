@@ -42,6 +42,7 @@ with sync_playwright() as p:
     assert page.locator("#metricProducts").inner_text() == "5"
     assert page.locator("#productRows tr").count() == 5
     page.screenshot(path=str(DOCS / "tela_03_produto_cadastrado.png"), full_page=True)
+    page.wait_for_timeout(3500)  # remove o toast antes da próxima evidência
 
     page.locator('#productRows button[data-action="move"]').first.click()
     page.locator('#moveForm [name="quantity"]').fill("5")
@@ -56,6 +57,7 @@ with sync_playwright() as p:
     page.locator('#moveForm [name="quantity"]').fill("2")
     page.locator('#moveForm button[type="submit"]').click()
     assert page.locator("#movementRows tr").count() == 2
+    page.wait_for_timeout(3500)  # remove o toast da saída antes da captura
 
     page.locator('.nav-link[data-view="products"]').click()
     page.locator("#onlyLow").check()
@@ -74,7 +76,7 @@ with sync_playwright() as p:
     page.once("dialog", lambda dialog: dialog.accept())
     page.locator('#productRows button[data-action="delete"]').first.click()
     assert page.locator("#metricProducts").inner_text() == "4"
-    page.wait_for_timeout(1600)  # aguarda o aviso temporário desaparecer antes da captura
+    page.wait_for_timeout(3500)  # aguarda o aviso temporário desaparecer antes da captura
 
     page.locator('.nav-link[data-view="movements"]').click()
     assert page.locator("#movementRows tr").count() == 2

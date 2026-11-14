@@ -47,7 +47,8 @@ Para executar localmente, instale Python com `reportlab`, `pillow` e `playwright
 
 ```bash
 python docs/verify_ui.py
-dot -Tpng docs/casos_de_uso.dot -o docs/casos_de_uso.png
+neato -n2 -Tpng docs/casos_de_uso.dot -o docs/casos_de_uso_base.png
+python docs/render_use_cases.py
 dot -Tpng docs/classes.dot -o docs/classes.png
 dot -Tsvg docs/classes.dot -o docs/classes.svg
 dot -Tpng docs/arquitetura.dot -o docs/arquitetura.png
@@ -65,6 +66,7 @@ python docs/build_pdf.py
 | `src/stock.js` | Regras de negócio puras |
 | `test/stock.test.js` | Testes automatizados das regras |
 | `docs/casos_de_uso.dot` | Fonte editável do diagrama de casos de uso |
+| `docs/render_use_cases.py` | Desenha a fronteira do sistema na imagem do diagrama |
 | `docs/classes.dot` | Fonte editável do diagrama de classes |
 | `docs/arquitetura.dot` | Fonte editável do diagrama de arquitetura |
 | `docs/Documentacao_EstoqueFacil.pdf` | Documentação acadêmica |

@@ -44,7 +44,8 @@ jobs:
         run: python docs/verify_ui.py
       - name: Renderizar diagramas atualizados
         run: |
-          dot -Tpng docs/casos_de_uso.dot -o docs/casos_de_uso.png
+          neato -n2 -Tpng docs/casos_de_uso.dot -o docs/casos_de_uso_base.png
+          python docs/render_use_cases.py
           dot -Tpng docs/classes.dot -o docs/classes.png
           dot -Tsvg docs/classes.dot -o docs/classes.svg
           dot -Tpng docs/arquitetura.dot -o docs/arquitetura.png
