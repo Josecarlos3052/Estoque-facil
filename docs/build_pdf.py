@@ -207,6 +207,7 @@ table([
 ], [120, 383])
 h2("6.2 Tipos, associações e multiplicidades")
 para("<b>String</b> representa texto; <b>Decimal</b>, preço monetário; <b>Integer</b>, quantidades; <b>DateTime</b>, instante de registro. TipoMovimentacao admite Entrada e Saída. As associações indicam que um ServiçoEstoque gerencia zero ou muitos Produtos, consulta zero ou muitas Movimentações e utiliza um RepositorioLocal. Cada Movimentação refere-se a um Produto, que pode ter nenhuma ou muitas movimentações.")
+para("DadosProduto, ResultadoMovimentacao, Indicadores e EstadoEstoque aparecem nas assinaturas como estruturas de dados de entrada ou retorno; não representam novas entidades do domínio com identidade própria.")
 para("Não foram criadas relações de herança, agregação ou composição artificiais. A exclusão do produto do catálogo não apaga os registros históricos associados.")
 h2("6.3 Mapeamento para a implementação")
 para("As regras puras estão em <b>src/stock.js</b> (validação, cadastro, edição, movimentação, pesquisa, indicadores e CSV). A navegação, os eventos, a exclusão e a persistência ficam em <b>src/app.js</b>. A interface é definida em <b>index.html</b> e <b>src/style.css</b>.")
