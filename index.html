@@ -4,42 +4,120 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0c1c2d" />
-  <title>EstoqueFácil • Painel de controle</title>
+  <title>EstoqueFácil • Controle de estoque</title>
   <link rel="stylesheet" href="src/style.css" />
   <script type="module" src="src/app.js"></script>
 </head>
 <body>
   <div class="shell">
     <aside class="sidebar">
-      <div class="brand"><span class="brand-symbol">▤</span><div>Estoque<span>Fácil</span><small>GESTÃO INTELIGENTE</small></div></div>
+      <div class="brand"><span class="brand-symbol">▤</span><div>Estoque<span>Fácil</span><small>CONTROLE DE ESTOQUE</small></div></div>
       <div class="sidebar-caption">ÁREA DE TRABALHO</div>
-      <div class="nav-link selected"><span>▦</span> Visão geral</div>
-      <div class="nav-link"><span>▤</span> Produtos</div>
-      <div class="nav-link"><span>↔</span> Movimentações</div>
-      <div class="side-card"><div class="side-card-icon">✦</div><strong>Organize seu negócio</strong><p>Controle produtos, acompanhe entradas e saídas e evite rupturas.</p></div>
+      <nav class="sidebar-nav" aria-label="Navegação principal">
+        <button class="nav-link selected" type="button" data-view="overview" aria-current="page"><span>▦</span> Visão geral</button>
+        <button class="nav-link" type="button" data-view="products"><span>▤</span> Produtos</button>
+        <button class="nav-link" type="button" data-view="movements"><span>↔</span> Movimentações</button>
+      </nav>
+      <div class="side-card"><div class="side-card-icon">✦</div><strong>Organize seu negócio</strong><p>Cadastre produtos, acompanhe entradas e saídas e mantenha o estoque atualizado.</p></div>
       <div class="sidebar-bottom"><span class="avatar">EF</span><div><strong>Loja demonstração</strong><small>Ambiente local</small></div></div>
     </aside>
+
     <main class="main">
-      <header class="topbar"><div><span class="crumb">PAINEL / VISÃO GERAL</span><div class="subtitle">Acompanhe o seu estoque em tempo real</div></div><div class="right-top"><span class="status-dot"></span> Dados salvos neste navegador</div></header>
+      <header class="topbar">
+        <div><span class="crumb" id="viewCrumb">PAINEL / VISÃO GERAL</span><div class="subtitle" id="viewSubtitle">Acompanhe os indicadores e as atividades do estoque.</div></div>
+        <div class="right-top"><span class="status-dot"></span> Dados salvos neste navegador</div>
+      </header>
+
       <div class="content">
-        <div class="page-header"><div><span class="eyebrow">CONTROLE DE ESTOQUE</span><h1>Visão geral <span class="wave">✳</span></h1><p>Tenha clareza de tudo que entra e sai da sua loja.</p></div><button class="btn primary" id="addProduct">＋ Novo produto</button></div>
-        <section class="metrics">
-          <div class="metric-card"><div class="metric-label">Produtos cadastrados <span class="metric-icon blue">▤</span></div><div class="metric-value" id="metricProducts">0</div><div class="metric-note">Itens no catálogo</div></div>
-          <div class="metric-card"><div class="metric-label">Unidades disponíveis <span class="metric-icon green">▦</span></div><div class="metric-value" id="metricUnits">0</div><div class="metric-note">Total em estoque</div></div>
-          <div class="metric-card"><div class="metric-label">Estoque baixo <span class="metric-icon orange">!</span></div><div class="metric-value" id="metricLow">0</div><div class="metric-note warning">Produtos que precisam de atenção</div></div>
-          <div class="metric-card"><div class="metric-label">Valor em estoque <span class="metric-icon purple">R$</span></div><div class="metric-value compact" id="metricValue">R$ 0,00</div><div class="metric-note">Estimativa pelo preço cadastrado</div></div>
+        <section class="view" id="view-overview" data-view-panel="overview">
+          <div class="page-header"><div><span class="eyebrow">CONTROLE DE ESTOQUE</span><h1>Visão geral <span class="wave">✳</span></h1><p>Resumo dos produtos, quantidades e movimentações.</p></div><button class="btn primary" id="quickAddProduct">＋ Novo produto</button></div>
+          <section class="metrics">
+            <div class="metric-card"><div class="metric-label">Produtos cadastrados <span class="metric-icon blue">▤</span></div><div class="metric-value" id="metricProducts">0</div><div class="metric-note">Itens no catálogo</div></div>
+            <div class="metric-card"><div class="metric-label">Unidades disponíveis <span class="metric-icon green">▦</span></div><div class="metric-value" id="metricUnits">0</div><div class="metric-note">Total em estoque</div></div>
+            <div class="metric-card"><div class="metric-label">Estoque baixo <span class="metric-icon orange">!</span></div><div class="metric-value" id="metricLow">0</div><div class="metric-note warning">Produtos no mínimo ou abaixo</div></div>
+            <div class="metric-card"><div class="metric-label">Valor em estoque <span class="metric-icon purple">R$</span></div><div class="metric-value compact" id="metricValue">R$ 0,00</div><div class="metric-note">Estimativa pelo preço cadastrado</div></div>
+          </section>
+          <div class="overview-grid">
+            <section class="panel">
+              <div class="panel-head"><div><h2>Produtos que precisam de atenção</h2><p>Itens no nível mínimo ou abaixo dele.</p></div><button class="text-button" type="button" data-go-view="products">Ver produtos</button></div>
+              <div class="overview-list" id="lowStockList"><div class="history-empty">Nenhum produto com estoque baixo.</div></div>
+            </section>
+            <section class="panel">
+              <div class="panel-head"><div><h2>Movimentações recentes</h2><p>Últimas entradas e saídas registradas.</p></div><button class="text-button" type="button" data-go-view="movements">Ver histórico</button></div>
+              <div class="history-list" id="recentHistoryList"><div class="history-empty">Nenhuma movimentação registrada.</div></div>
+            </section>
+          </div>
         </section>
-        <section class="panel inventory" id="produtos"><div class="panel-head"><div><h2>Meus produtos</h2><p>Gerencie os itens e as quantidades disponíveis.</p></div><div class="panel-actions"><button class="btn secondary" id="exportCSV">⇩ Exportar CSV</button></div></div>
-          <div class="toolbar"><label class="search">⌕ <input id="searchInput" placeholder="Buscar por nome, SKU ou categoria" aria-label="Buscar produtos" /></label><label class="toggle"><input id="onlyLow" type="checkbox" /> Mostrar somente estoque baixo</label></div>
-          <div class="table-scroll"><table><thead><tr><th>PRODUTO</th><th>SKU</th><th>PREÇO</th><th>ESTOQUE</th><th>STATUS</th><th>AÇÕES</th></tr></thead><tbody id="productRows"></tbody></table></div><div id="emptyState" class="empty" hidden>Nenhum produto encontrado.</div><div class="table-bottom"><span id="itemCount">0 produtos</span><span>Atualização automática</span></div>
+
+        <section class="view" id="view-products" data-view-panel="products" hidden>
+          <div class="page-header"><div><span class="eyebrow">CATÁLOGO</span><h1>Produtos</h1><p>Cadastre, consulte, edite e acompanhe os itens da loja.</p></div><button class="btn primary" id="addProduct">＋ Novo produto</button></div>
+          <section class="panel inventory" id="produtos">
+            <div class="panel-head"><div><h2>Todos os produtos</h2><p>Use a pesquisa e os filtros para localizar um item.</p></div><div class="panel-actions"><button class="btn secondary" id="exportCSV">⇩ Exportar CSV</button></div></div>
+            <div class="toolbar">
+              <label class="search">⌕ <input id="searchInput" placeholder="Buscar por nome, SKU ou categoria" aria-label="Buscar produtos" /></label>
+              <label class="toggle"><input id="onlyLow" type="checkbox" /> Mostrar somente estoque baixo</label>
+            </div>
+            <div class="table-scroll"><table><thead><tr><th>PRODUTO</th><th>SKU</th><th>PREÇO</th><th>ESTOQUE</th><th>STATUS</th><th>AÇÕES</th></tr></thead><tbody id="productRows"></tbody></table></div>
+            <div id="emptyState" class="empty" hidden>Nenhum produto encontrado.</div>
+            <div class="table-bottom"><span id="itemCount">0 produtos</span><span>Dados atualizados automaticamente</span></div>
+          </section>
         </section>
-        <section class="panel history" id="movimentos"><div class="panel-head"><div><h2>Últimas movimentações</h2><p>Registro de entradas e saídas feitas pelo sistema.</p></div></div><div id="historyList" class="history-list"><div class="history-empty">Nenhuma movimentação registrada nesta sessão.</div></div></section>
-        <footer>EstoqueFácil • Projeto acadêmico demonstrativo <span>Versão 1.0</span></footer>
+
+        <section class="view" id="view-movements" data-view-panel="movements" hidden>
+          <div class="page-header"><div><span class="eyebrow">ENTRADAS E SAÍDAS</span><h1>Movimentações</h1><p>Registre alterações de saldo e consulte o histórico completo.</p></div><button class="btn primary" id="newMovement">＋ Registrar movimentação</button></div>
+          <section class="panel">
+            <div class="panel-head"><div><h2>Histórico de movimentações</h2><p>O registro apresenta as movimentações salvas neste navegador.</p></div></div>
+            <div class="toolbar movement-toolbar">
+              <label class="search">⌕ <input id="movementSearch" placeholder="Buscar por produto ou SKU" aria-label="Buscar movimentações" /></label>
+              <label class="filter-field">Tipo
+                <select id="movementTypeFilter" aria-label="Filtrar por tipo">
+                  <option value="TODAS">Todas</option>
+                  <option value="ENTRADA">Entradas</option>
+                  <option value="SAÍDA">Saídas</option>
+                </select>
+              </label>
+            </div>
+            <div class="table-scroll"><table><thead><tr><th>DATA E HORA</th><th>PRODUTO</th><th>SKU</th><th>TIPO</th><th>QUANTIDADE</th></tr></thead><tbody id="movementRows"></tbody></table></div>
+            <div id="movementEmpty" class="empty" hidden>Nenhuma movimentação corresponde aos filtros.</div>
+            <div class="table-bottom"><span id="movementCount">0 movimentações</span><span>Histórico completo</span></div>
+          </section>
+        </section>
+
+        <footer>EstoqueFácil • Controle de estoque <span>Versão 1.1</span></footer>
       </div>
     </main>
   </div>
-  <dialog id="productDialog" class="dialog"><form id="productForm"><div class="dialog-header"><div><small>CADASTRO DE PRODUTO</small><h2 id="productDialogTitle">Novo produto</h2></div><button type="button" class="close" data-close="productDialog">×</button></div><div class="form-grid"><label class="wide">Nome do produto<input name="name" maxlength="70" placeholder="Ex.: Panela antiaderente 24 cm" required minlength="3" /></label><label>SKU<input name="sku" maxlength="20" placeholder="Ex.: PAN-024" required /></label><label>Categoria<select name="category"><option>Panelas</option><option>Frigideiras</option><option>Utensílios</option><option>Outros</option></select></label><label>Preço (R$)<input name="price" type="number" min="0" step="0.01" required /></label><label>Estoque mínimo<input name="minimum" type="number" min="0" step="1" required /></label><label id="initialStockLabel" class="wide">Estoque inicial<input name="stock" type="number" min="0" step="1" required /></label></div><p class="error" id="productError" role="alert"></p><div class="dialog-footer"><button type="button" class="btn secondary" data-close="productDialog">Cancelar</button><button type="submit" class="btn primary">Salvar produto</button></div></form></dialog>
-  <dialog id="moveDialog" class="dialog"><form id="moveForm"><div class="dialog-header"><div><small>MOVIMENTAÇÃO DE ESTOQUE</small><h2>Registrar movimentação</h2></div><button type="button" class="close" data-close="moveDialog">×</button></div><p id="moveProductName" class="move-product"></p><div class="form-grid"><label>Tipo<select name="type"><option value="ENTRADA">Entrada (+)</option><option value="SAÍDA">Saída (-)</option></select></label><label>Quantidade<input name="quantity" type="number" min="1" step="1" required /></label></div><p class="error" id="moveError" role="alert"></p><div class="dialog-footer"><button type="button" class="btn secondary" data-close="moveDialog">Cancelar</button><button type="submit" class="btn primary">Confirmar</button></div></form></dialog>
+
+  <dialog id="productDialog" class="dialog">
+    <form id="productForm">
+      <div class="dialog-header"><div><small>CADASTRO DE PRODUTO</small><h2 id="productDialogTitle">Novo produto</h2></div><button type="button" class="close" data-close="productDialog" aria-label="Fechar">×</button></div>
+      <div class="form-grid">
+        <label class="wide">Nome do produto<input name="name" maxlength="70" placeholder="Ex.: Panela antiaderente 24 cm" required minlength="3" /></label>
+        <label>SKU<input name="sku" maxlength="20" placeholder="Ex.: PAN-024" required /></label>
+        <label>Categoria<select name="category"><option>Panelas</option><option>Frigideiras</option><option>Utensílios</option><option>Outros</option></select></label>
+        <label>Preço (R$)<input name="price" type="number" min="0" step="0.01" required /></label>
+        <label>Estoque mínimo<input name="minimum" type="number" min="0" step="1" required /></label>
+        <label id="initialStockLabel" class="wide">Estoque inicial<input name="stock" type="number" min="0" step="1" required /></label>
+      </div>
+      <p class="error" id="productError" role="alert"></p>
+      <div class="dialog-footer"><button type="button" class="btn secondary" data-close="productDialog">Cancelar</button><button type="submit" class="btn primary">Salvar produto</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="moveDialog" class="dialog">
+    <form id="moveForm">
+      <div class="dialog-header"><div><small>MOVIMENTAÇÃO DE ESTOQUE</small><h2>Registrar movimentação</h2></div><button type="button" class="close" data-close="moveDialog" aria-label="Fechar">×</button></div>
+      <div class="form-grid">
+        <label class="wide">Produto<select name="productId" id="moveProductSelect" required></select></label>
+        <label>Tipo<select name="type"><option value="ENTRADA">Entrada (+)</option><option value="SAÍDA">Saída (-)</option></select></label>
+        <label>Quantidade<input name="quantity" type="number" min="1" step="1" required /></label>
+      </div>
+      <p id="moveProductName" class="move-product"></p>
+      <p class="error" id="moveError" role="alert"></p>
+      <div class="dialog-footer"><button type="button" class="btn secondary" data-close="moveDialog">Cancelar</button><button type="submit" class="btn primary">Confirmar movimentação</button></div>
+    </form>
+  </dialog>
+
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
 </body>
 </html>
