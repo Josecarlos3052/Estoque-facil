@@ -27,7 +27,7 @@ A tabela abaixo consolida os requisitos que foi possível ler no enunciado do No
 | Implementação real | Atendido no escopo do protótipo | Cadastro, edição, exclusão, movimentação, filtros, histórico e CSV |
 | Testes automatizados de regras | Atendido | 21 cenários aprovados em test/stock.test.js; execução pelo npm test no workflow 43620166555 |
 | Verificação da interface | Atendido | Playwright/Chromium validou cadastro, entrada, saída, filtros, busca, edição, exclusão, histórico, persistência simulada e exportação CSV no workflow 43620166555 |
-| Vídeo MP4 até 1 minuto | Atendido | MP4 atualizado, 28,56 segundos, 1280×720, H.264; duração verificada no workflow 43620166555 |
+| Vídeo MP4 até 1 minuto | Atendido | MP4 H.264 em 1280×720; duração inferior a 60 segundos verificada no workflow 43620476398 |
 | Repositório Git público | Atendido | Repositório público na ramificação main |
 | README com descrição e execução | Atendido | README.md |
 | Commits semânticos | Parcialmente atendido | Há mensagens semânticas, mas o histórico anterior contém identidades genéricas |
