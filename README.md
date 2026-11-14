@@ -47,7 +47,6 @@ Para executar localmente, instale Python com `reportlab`, `pillow` e `playwright
 
 ```bash
 python docs/verify_ui.py
-neato -n2 -Tpng docs/casos_de_uso.dot -o docs/casos_de_uso_base.png
 python docs/render_use_cases.py
 dot -Tpng docs/classes.dot -o docs/classes.png
 dot -Tsvg docs/classes.dot -o docs/classes.svg

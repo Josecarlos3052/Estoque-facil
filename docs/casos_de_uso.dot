@@ -1,19 +1,20 @@
-graph UseCases {
- graph [label="Diagrama de Casos de Uso | EstoqueFácil 1.1",labelloc=t,fontsize=19,fontname="DejaVu Sans",bgcolor="white",pad=.3,layout=neato,overlap=false,splines=line,outputorder=edgesfirst];
+digraph UseCases {
+ graph [label="Diagrama de Casos de Uso | EstoqueFácil 1.1",labelloc=t,fontsize=19,fontname="DejaVu Sans",bgcolor="white",ranksep=.55,nodesep=.45,pad=.3,rankdir=LR];
  node [fontname="DejaVu Sans",fontsize=11];
- edge [color="#7894a3",penwidth=1.25];
- dummy [label="",shape=point,width=0,height=0,style=invis,pos="400,330!"];
- operador [shape=plaintext,label="OPERADOR\nDA LOJA",fontcolor="#184456",fontsize=12,pos="35,155!"];
- cadastrar [label="Cadastrar produto",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="220,250!"];
- editar [label="Editar produto",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="220,200!"];
- entrada [label="Registrar entrada",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="220,150!"];
- saida [label="Registrar saída",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="220,100!"];
- buscar [label="Buscar produtos",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="220,50!"];
- baixo [label="Filtrar estoque baixo",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="520,250!"];
- indicadores [label="Consultar indicadores",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="520,200!"];
- csv [label="Exportar CSV",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="520,150!"];
- excluir [label="Excluir produto",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="520,100!"];
- historico [label="Consultar histórico\n(pesquisar e filtrar)",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2",pos="520,50!"];
- operador -- cadastrar; operador -- editar; operador -- entrada; operador -- saida; operador -- buscar;
- operador -- baixo; operador -- indicadores; operador -- csv; operador -- excluir; operador -- historico;
+ edge [color="#7894a3",penwidth=1.35,arrowhead=none];
+ operador [shape=plaintext,label="OPERADOR\nDA LOJA",fontcolor="#184456",fontsize=12];
+ subgraph cluster_system {
+  label="Sistema EstoqueFácil";fontname="DejaVu Sans";style="rounded";color="#b7dacf";fillcolor="#f3fbf8";bgcolor="#f3fbf8";
+  cadastrar [label="Cadastrar produto",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+  editar [label="Editar produto",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+  entrada [label="Registrar entrada",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+  saida [label="Registrar saída",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+  buscar [label="Buscar produtos",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+  baixo [label="Filtrar estoque baixo",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+  indicadores [label="Consultar indicadores",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+  csv [label="Exportar CSV",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+  excluir [label="Excluir produto",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+  historico [label="Consultar histórico\n(pesquisar e filtrar)",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+ }
+ operador -> {cadastrar editar entrada saida buscar baixo indicadores csv excluir historico};
 }
