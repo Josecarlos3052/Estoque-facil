@@ -15,3 +15,23 @@ test('RF05 - busca por SKU ou nome sem diferença de maiúsculas', () => {assert
 test('RF06 - filtra produtos com estoque baixo', () => assert.deepEqual(searchProducts(SAMPLE_PRODUCTS,'',true).map(p=>p.id),['p-102']));
 test('RF07 - métricas calculadas corretamente', () => {const m=getMetrics(SAMPLE_PRODUCTS);assert.equal(m.products,4);assert.equal(m.units,40);assert.equal(m.low,1)});
 test('RF08 - exporta CSV delimitado por ponto e vírgula', () => {const csv=toCSV(SAMPLE_PRODUCTS);assert.ok(csv.includes('PAN-024'));assert.ok(csv.includes('"SKU";"Produto"'))});
+
+// Cenários adicionais de exceções e fluxos alternativos dos casos de uso.
+test('RF01 - recusa preço vazio em vez de converter em zero', () => assert.throws(() => validateProduct({...input, price:''}), /Preço é obrigatório/));
+test('RF01 - recusa estoque inicial vazio', () => assert.throws(() => validateProduct({...input, stock:''}), /Estoque inicial é obrigatório/));
+test('RF01 - recusa estoque mínimo vazio', () => assert.throws(() => validateProduct({...input, minimum:'  '}), /Estoque mínimo é obrigatório/));
+test('RF01 - recusa nome curto e SKU fora do padrão', () => {
+  assert.throws(() => validateProduct({...input, name:'A'}), /nome/);
+  assert.throws(() => validateProduct({...input, sku:'a b'}), /SKU/);
+});
+test('RF03 - recusa tipo inválido de movimentação', () => assert.throws(() => moveStock(SAMPLE_PRODUCTS,'p-101','AJUSTE',2,'m06'), /Tipo de movimentação/));
+test('RF04 - saldo não é alterado após tentativa de saída excessiva', () => {
+  const oldStock=SAMPLE_PRODUCTS.find(p=>p.id==='p-102').stock;
+  assert.throws(() => moveStock(SAMPLE_PRODUCTS,'p-102','SAÍDA',oldStock+1,'m07'),/Saldo insuficiente/);
+  assert.equal(SAMPLE_PRODUCTS.find(p=>p.id==='p-102').stock,oldStock);
+});
+test('RF02 - recusa editar produto inexistente', () => assert.throws(() => updateProduct(SAMPLE_PRODUCTS,'nao-existe',input), /não encontrado/));
+test('RF06 - limite mínimo exato também é sinalizado', () => {
+  const match={...SAMPLE_PRODUCTS[0], id:'limiar',stock:5,minimum:5};
+  assert.equal(searchProducts([match],'',true).length,1);
+});
