@@ -25,15 +25,16 @@ A tabela abaixo consolida os requisitos que foi possível ler no enunciado do No
 | Diagrama de sequência | Atendido | Fluxo de registro de saída e alternativa de saldo insuficiente |
 | Arquitetura e armazenamento | Atendido | HTML/CSS, app.js, stock.js e localStorage |
 | Implementação real | Atendido no escopo do protótipo | Cadastro, edição, exclusão, movimentação, filtros, histórico e CSV |
-| Testes automatizados de regras | Atendido | 21 cenários aprovados em test/stock.test.js; execução pelo npm test no workflow 43620166555 |
-| Verificação da interface | Atendido | Playwright/Chromium validou cadastro, entrada, saída, filtros, busca, edição, exclusão, histórico, persistência simulada e exportação CSV no workflow 43620166555 |
-| Vídeo MP4 até 1 minuto | Atendido | MP4 H.264 em 1280×720; duração inferior a 60 segundos verificada no workflow 43620476398 |
+| Testes automatizados de regras | Atendido | 21 cenários aprovados em test/stock.test.js; execução pelo npm test no GitHub Actions |
+| Verificação da interface | Atendido | Playwright/Chromium validou cadastro, entrada, saída, filtros, busca, edição, exclusão, histórico, persistência simulada e exportação CSV no GitHub Actions |
+| Vídeo MP4 até 1 minuto | Atendido | MP4 H.264 em 1280×720; duração inferior a 60 segundos verificada automaticamente no GitHub Actions |
 | Repositório Git público | Atendido | Repositório público na ramificação main |
 | README com descrição e execução | Atendido | README.md |
 | Commits semânticos | Parcialmente atendido | Há mensagens semânticas, mas o histórico anterior contém identidades genéricas |
 | Commits frequentes ao longo do tempo | Pendente / limitação histórica | Os commits consultados estão concentrados em 14/11/2026; não é correto apresentá-los como evolução distribuída por vários dias |
 | Autoria Git vinculada ao estudante | Parcial / conferir | Parte dos commits antigos usa “Autor do projeto”; commits posteriores aparecem associados a Josecarlos3052. Não reescrever autorias ou datas antigas |
-| PDF e vídeo publicados no GitHub | Atendido | docs/Documentacao_EstoqueFacil.pdf (12 páginas A4) e docs/Demo_EstoqueFacil_Interativo.mp4 atualizados na main |\n| PDF e vídeo enviados na plataforma acadêmica | Pendente do estudante | O estudante deve anexar os dois arquivos na atividade |
+| PDF e vídeo publicados no GitHub | Atendido | docs/Documentacao_EstoqueFacil.pdf (12 páginas A4) e docs/Demo_EstoqueFacil_Interativo.mp4 atualizados na main |
+| PDF e vídeo enviados na plataforma acadêmica | Pendente do estudante | O estudante deve anexar os dois arquivos na atividade |
 | Prazo | Conforme enunciado consultado | 18/11/2026 às 21h00 |
 
 ## Verificações que não podem ser resolvidas automaticamente
