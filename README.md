@@ -6,7 +6,7 @@
 **Versão documentada:** 1.1  
 **Data:** novembro de 2026
 
-Protótipo web de controle de estoque para uma pequena loja de panelas e utensílios. O projeto demonstra levantamento de requisitos, modelagem UML, implementação inicial, testes automatizados e versionamento com Git.
+Aplicação web acadêmica de controle de estoque para uma pequena loja de panelas e utensílios. O projeto contempla levantamento de requisitos, modelagem UML, implementação funcional, testes automatizados e versionamento com Git.
 
 ## Funcionalidades implementadas
 

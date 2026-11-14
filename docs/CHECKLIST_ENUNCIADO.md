@@ -24,7 +24,7 @@ A tabela abaixo consolida os requisitos que foi possível ler no enunciado do No
 | Classificação e multiplicidade dos relacionamentos | Atendido | Associações explicitadas; sem herança/agregação/composição artificiais |
 | Diagrama de sequência | Atendido | Fluxo de registro de saída e alternativa de saldo insuficiente |
 | Arquitetura e armazenamento | Atendido | HTML/CSS, app.js, stock.js e localStorage |
-| Implementação real | Atendido no escopo do protótipo | Cadastro, edição, exclusão, movimentação, filtros, histórico e CSV |
+| Implementação funcional | Atendido no escopo documentado | Cadastro, edição, exclusão, movimentação, filtros, histórico e CSV |
 | Testes automatizados de regras | Atendido | 21 cenários aprovados em test/stock.test.js; execução pelo npm test no GitHub Actions |
 | Verificação da interface | Atendido | Playwright/Chromium validou cadastro, entrada, saída, filtros, busca, edição, exclusão, histórico, persistência simulada e exportação CSV no GitHub Actions |
 | Vídeo MP4 até 1 minuto | Atendido | MP4 H.264 em 1280×720; duração inferior a 60 segundos verificada automaticamente no GitHub Actions |

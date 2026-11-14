@@ -101,11 +101,11 @@ add(Spacer(1, 100), P("CIÊNCIA DA COMPUTAÇÃO  •  ANÁLISE E PROJETO DE SIST
 
 h1("1", "Apresentação do projeto")
 para("<b>Disciplina:</b> Análise e Projeto de Sistemas. <b>Modalidade:</b> individual. <b>Data da revisão:</b> 14 de novembro de 2026.")
-para("O <b>EstoqueFácil</b> é um protótipo web para gerenciamento de estoque de uma pequena loja de panelas e utensílios domésticos. Permite cadastrar, editar e excluir produtos, registrar entradas e saídas, consultar indicadores, pesquisar itens, identificar estoque baixo, consultar o histórico e exportar a listagem em CSV.")
+para("O <b>EstoqueFácil</b> é uma aplicação web acadêmica para gerenciamento de estoque de uma pequena loja de panelas e utensílios domésticos. Permite cadastrar, editar e excluir produtos, registrar entradas e saídas, consultar indicadores, pesquisar itens, identificar estoque baixo, consultar o histórico e exportar a listagem em CSV.")
 h2("1.1 Problema e justificativa")
-para("O controle manual de quantidades por anotações ou planilhas isoladas pode dificultar a identificação do saldo disponível e dos itens que precisam de reposição. O protótipo concentra as operações essenciais em uma interface web simples e oferece retorno imediato após cada alteração.")
+para("O controle manual de quantidades por anotações ou planilhas isoladas pode dificultar a identificação do saldo disponível e dos itens que precisam de reposição. A aplicação concentra as operações essenciais em uma interface web simples e oferece retorno imediato após cada alteração.")
 h2("1.2 Objetivos")
-bullet("<b>Geral:</b> desenvolver e documentar um protótipo funcional de controle de estoque com regras explícitas de cadastro e movimentação.")
+bullet("<b>Geral:</b> desenvolver e documentar uma aplicação funcional de controle de estoque com regras explícitas de cadastro e movimentação.")
 bullet("<b>Específicos:</b> levantar requisitos; definir regras de negócio; representar casos de uso e classes; implementar funcionalidades; testar regras; organizar e versionar o código.")
 h2("1.3 Escopo e limitações")
 para("A versão 1.1 é executada no navegador por meio de um servidor HTTP estático local. A interface possui três áreas: Visão geral, Produtos e Movimentações. Os dados são persistidos em <b>localStorage</b> no navegador utilizado. Não há backend, autenticação, sincronização entre dispositivos, banco de dados remoto ou integração com marketplaces.")
@@ -261,7 +261,7 @@ para("O EstoqueFácil demonstra a passagem dos requisitos e regras de negócio p
 para("Não contempla login, múltiplas lojas, emissão fiscal, operações concorrentes, banco de dados remoto, backup automático ou integração com marketplaces. Como evolução, podem ser estudados backend, banco de dados, autenticação, permissões, backup e integração com pedidos, após novo levantamento de requisitos.")
 
 h1("13", "Conclusão")
-para("A documentação reúne problema, objetivos, requisitos, regras de negócio, casos de uso, classes, sequência, arquitetura, implementação, testes e versionamento do EstoqueFácil 1.1. O protótipo permite demonstrar funcionalidades reais dentro de um escopo reduzido e explicitar suas limitações.")
+para("A documentação reúne problema, objetivos, requisitos, regras de negócio, casos de uso, classes, sequência, arquitetura, implementação, testes e versionamento do EstoqueFácil 1.1. A aplicação permite demonstrar funcionalidades implementadas dentro de um escopo acadêmico delimitado e explicitar suas limitações.")
 add(P("<b>Repositório:</b> https://github.com/Josecarlos3052/Estoque-facil<br/><b>Visibilidade:</b> pública • <b>Ramificação:</b> main<br/><b>Arquivos acadêmicos:</b> Documentacao_EstoqueFacil.pdf e Demo_EstoqueFacil_Interativo.mp4.", "note"))
 
 def on_page(canvas, doc):
