@@ -75,7 +75,7 @@ python docs/build_pdf.py
 
 HTML, CSS e JavaScript com módulos ES, armazenamento local por `localStorage`, Node.js para testes, Playwright/Chromium para verificação da interface e ReportLab para gerar o PDF.
 
-O diagrama de classes representa o projeto lógico. A implementação inicial em JavaScript utiliza funções e objetos, com regras de negócio separadas da interface.
+O diagrama de classes representa o projeto lógico. A implementação em JavaScript utiliza funções e objetos, com regras de negócio separadas da interface.
 
 ## Regras centrais
 

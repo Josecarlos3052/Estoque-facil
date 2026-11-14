@@ -93,7 +93,7 @@ def use_case(title, goal, pre, main, alt, exceptions, post):
 # CAPA
 add(Spacer(1, 100), P("CIÊNCIA DA COMPUTAÇÃO  •  ANÁLISE E PROJETO DE SISTEMAS", "cover_kicker"),
     Spacer(1, 15), P("ESTOQUEFÁCIL", "cover_title"), Spacer(1, 14),
-    P("Documentação de análise, projeto e implementação inicial de um sistema de controle de estoque", "cover_sub"),
+    P("Documentação de análise, projeto e implementação de um sistema de controle de estoque", "cover_sub"),
     Spacer(1, 55), P("<b>Acadêmico:</b> José Carlos de Moraes Sousa", "cover_sub"),
     Spacer(1, 12), P("Trabalho individual", "cover_sub"), Spacer(1, 85),
     P("Franca - SP<br/>Novembro de 2026<br/>Versão documentada: 1.1", "cover_sub"),
@@ -194,7 +194,7 @@ h2("5.2 Rastreabilidade")
 para("RF01 → UC01; RF02 → UC02; RF03 → UC03; RF04 → UC04; RF05/RF06 → pesquisa e filtros; RF07 → indicadores; RF08 → exportação CSV; RF09 → UC05; RF10 → UC06.")
 
 h1("6", "Projeto de classes")
-para("O diagrama representa classes de projeto com atributos privados (−), operações públicas (+), tipos, parâmetros, retornos e multiplicidades. A implementação inicial em JavaScript utiliza funções e objetos; não há tradução literal de cada elemento para a sintaxe class.")
+para("O diagrama representa classes de projeto com atributos privados (−), operações públicas (+), tipos, parâmetros, retornos e multiplicidades. A implementação em JavaScript utiliza funções e objetos; não há tradução literal de cada elemento para a sintaxe class.")
 image("classes.png", max_width=500, max_height=340)
 caption("Figura 2 — Diagrama de classes de projeto. Fonte: elaboração do projeto.")
 h2("6.1 Classes e responsabilidades")
@@ -257,7 +257,7 @@ h2("11.2 Evidência em vídeo")
 para("O vídeo MP4 é gerado por execução da aplicação atual em Chromium automatizado. Ele demonstra as telas, cadastro, entrada, saída, alertas, pesquisa e histórico. O arquivo deve permanecer abaixo de 60 segundos.")
 
 h1("12", "Resultados, limitações e melhorias futuras")
-para("O EstoqueFácil demonstra a passagem dos requisitos e regras de negócio para uma implementação inicial executável. A versão atende ao escopo acadêmico de cadastro e movimentação de estoque, consulta e exportação, mantendo as regras separadas da interface.")
+para("O EstoqueFácil demonstra a passagem dos requisitos e regras de negócio para uma aplicação executável. O sistema atende ao escopo acadêmico de cadastro e movimentação de estoque, consulta e exportação, mantendo as regras separadas da interface.")
 para("Não contempla login, múltiplas lojas, emissão fiscal, operações concorrentes, banco de dados remoto, backup automático ou integração com marketplaces. Como evolução, podem ser estudados backend, banco de dados, autenticação, permissões, backup e integração com pedidos, após novo levantamento de requisitos.")
 
 h1("13", "Conclusão")
