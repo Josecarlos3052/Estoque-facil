@@ -1,12 +1,39 @@
 digraph Classes {
- graph [label="Modelo conceitual de classes • EstoqueFácil",labelloc=t, fontsize=19,fontname="DejaVu Sans",bgcolor="white",pad=.28,ranksep=.9,nodesep=.85];
- rankdir=LR;node [shape=record, fontname="DejaVu Sans",fontsize=10,style="filled,rounded",fillcolor="#f2fbf8",color="#54ad97",penwidth=1.6];edge [fontname="DejaVu Sans",fontsize=10, color="#4c6677", penwidth=1.5];
- Product [label="{Produto|id: string\lsku: string\lnome: string\lcategoria: string\lpreco: number\lsaldo: integer\lminimo: integer\l|validar()\l}"];
- Movement [label="{Movimentacao|id: string\lprodutoId: string\ltipo: ENTRADA / SAÍDA\lquantidade: integer\ldata: datetime\l}"];
- Stock [label="{ServicoEstoque|cadastrar()\lalterarCadastro()\lmovimentar()\lconsultarIndicadores()\lfiltrarProdutos()\lexportarCSV()\l}"];
- Storage [label="{RepositorioLocal|salvarEstado()\lcarregarEstado()\l}"];
- Stock -> Product [label="manipula 0..*",arrowhead=vee];
- Stock -> Movement [label="cria 0..*",arrowhead=vee];
- Stock -> Storage [label="persiste",arrowhead=vee];
- Movement -> Product [label="pertence a 1",arrowhead=vee,style=dashed];
+ graph [label="Diagrama de Classes de Projeto | EstoqueFácil",labelloc=t,fontsize=18,fontname="DejaVu Sans",bgcolor="white",pad=.25,nodesep=.52,ranksep=.85,layout=dot,rankdir=TB,splines=polyline];
+ node [shape=plain, fontname="DejaVu Sans", fontsize=11];
+ edge [fontname="DejaVu Sans",fontsize=10, color="#526c7a",penwidth=1.35,dir=none];
+ Produto [label=<
+ <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#4ca895" BGCOLOR="#f7fbfa">
+ <TR><TD BGCOLOR="#d7f2ea"><B>Produto</B></TD></TR>
+ <TR><TD ALIGN="LEFT">- id: String<BR ALIGN="LEFT"/>- sku: String<BR ALIGN="LEFT"/>- nome: String<BR ALIGN="LEFT"/>- categoria: String<BR ALIGN="LEFT"/>- preco: Decimal<BR ALIGN="LEFT"/>- saldo: Integer<BR ALIGN="LEFT"/>- minimo: Integer<BR ALIGN="LEFT"/>- criadoEm: DateTime</TD></TR>
+ <HR/>
+ <TR><TD ALIGN="LEFT">+ validar(): Boolean<BR ALIGN="LEFT"/>+ estaComEstoqueBaixo(): Boolean</TD></TR>
+ </TABLE>>];
+ Movimentacao [label=<
+ <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#4ca895" BGCOLOR="#f7fbfa">
+ <TR><TD BGCOLOR="#d7f2ea"><B>Movimentacao</B></TD></TR>
+ <TR><TD ALIGN="LEFT">- id: String<BR ALIGN="LEFT"/>- produtoId: String<BR ALIGN="LEFT"/>- nomeProduto: String<BR ALIGN="LEFT"/>- sku: String<BR ALIGN="LEFT"/>- tipo: TipoMovimentacao<BR ALIGN="LEFT"/>- quantidade: Integer<BR ALIGN="LEFT"/>- data: DateTime</TD></TR>
+ <HR/>
+ <TR><TD ALIGN="LEFT">+ validarQuantidade(): Boolean<BR ALIGN="LEFT"/>+ consultarTipo(): TipoMovimentacao</TD></TR>
+ </TABLE>>];
+ ServicoEstoque [label=<
+ <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#4ca895" BGCOLOR="#f7fbfa">
+ <TR><TD BGCOLOR="#c9e6f2"><B>ServicoEstoque</B></TD></TR>
+ <TR><TD ALIGN="LEFT">- produtos: List&lt;Produto&gt;<BR ALIGN="LEFT"/>- historico: List&lt;Movimentacao&gt;</TD></TR>
+ <HR/>
+ <TR><TD ALIGN="LEFT">+ cadastrar(dados: DadosProduto, id: String): Produto<BR ALIGN="LEFT"/>+ editar(id: String, dados: DadosProduto): List&lt;Produto&gt;<BR ALIGN="LEFT"/>+ movimentar(id: String, tipo: TipoMovimentacao,<BR ALIGN="LEFT"/>    qtd: Integer): ResultadoMovimentacao<BR ALIGN="LEFT"/>+ buscar(termo: String, somenteBaixo: Boolean): List&lt;Produto&gt;<BR ALIGN="LEFT"/>+ indicadores(): Indicadores<BR ALIGN="LEFT"/>+ exportarCsv(): String</TD></TR>
+ </TABLE>>];
+ RepositorioLocal [label=<
+ <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#4ca895" BGCOLOR="#f7fbfa">
+ <TR><TD BGCOLOR="#c9e6f2"><B>RepositorioLocal</B></TD></TR>
+ <TR><TD ALIGN="LEFT">- chave: String</TD></TR>
+ <HR/>
+ <TR><TD ALIGN="LEFT">+ carregar(): EstadoEstoque<BR ALIGN="LEFT"/>+ salvar(estado: EstadoEstoque): void</TD></TR>
+ </TABLE>>];
+ {rank=same; Produto; Movimentacao}
+ {rank=same; ServicoEstoque; RepositorioLocal}
+ Produto -> Movimentacao [label="associação: registra",taillabel="1",headlabel="0..*",labeldistance=1.7];
+ ServicoEstoque -> Produto [label="associação: gerencia",taillabel="1",headlabel="0..*",labeldistance=1.5];
+ ServicoEstoque -> Movimentacao [label="associação: consulta",taillabel="1",headlabel="0..*",labeldistance=1.6];
+ ServicoEstoque -> RepositorioLocal [label="associação: utiliza",taillabel="1",headlabel="1",labeldistance=1.6];
 }
