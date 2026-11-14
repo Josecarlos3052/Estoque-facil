@@ -1,10 +1,23 @@
-ROTEIRO DE APRESENTAÇÃO - ESTOQUEFÁCIL (aprox. 55 segundos)
+APRESENTAÇÃO / NARRAÇÃO SUGERIDA — ESTOQUEFÁCIL
+Duração do vídeo-base: cerca de 38 a 40 segundos; formato MP4, 1280 × 720.
 
-0-07s — "Olá! Este é o EstoqueFácil, meu projeto de Análise e Projeto de Sistemas, pensado para controlar o estoque de uma pequena loja de panelas."
-07-16s — "Na visão geral, o sistema exibe quantos produtos existem, quantas unidades estão disponíveis, o valor estimado e os alertas de estoque baixo."
-16-27s — "É possível cadastrar produtos informando nome, código SKU, categoria, preço, estoque inicial e quantidade mínima."
-27-40s — "Também consigo registrar entradas e saídas. O sistema impede uma saída maior que o saldo, preservando a consistência do estoque."
-40-49s — "A busca permite localizar produtos rapidamente, e o filtro mostra quais itens precisam de reposição."
-49-55s — "As movimentações são registradas, os dados ficam salvos no navegador e o código está organizado e versionado para consulta no GitHub. Obrigado!"
+0–4 s — [Mostre o painel]
+“Este é o EstoqueFácil, um sistema de controle de estoque para uma loja de panelas.”
 
-Dica: fale naturalmente enquanto mostra a tela. Use a versão MP4 sem áudio como base visual; se preferir, grave sua narração e substitua a trilha.
+4–14 s — [Abra Novo produto, preencha e confirme]
+“Aqui eu consigo cadastrar um produto com código, categoria, preço e quantidade mínima.”
+
+14–25 s — [Abra Movimentar e registre entrada e saída]
+“Também registro entradas e saídas. O sistema valida a quantidade e não permite retirar mais unidades que o estoque disponível.”
+
+25–34 s — [Marque Estoque baixo e utilize a pesquisa]
+“Ele destaca os itens que precisam de reposição e permite pesquisar produtos por nome ou código.”
+
+34–40 s — [Volte ao painel]
+“As movimentações ficam registradas e os dados são salvos localmente no navegador.”
+
+DICAS
+- Fale com naturalidade e adapte a duração à sua velocidade; o vídeo entregue precisa ter no máximo 60 segundos.
+- O MP4 fornecido mostra interações reais na aplicação em navegador isolado e está sem narração; você pode gravar sua voz por cima, se desejar.
+- Não diga que o projeto tem banco de dados remoto, login ou integração com marketplaces: essas funcionalidades não existem nesta versão.
+- Não afirme que o repositório já foi publicado até confirmar seu endereço no GitHub.

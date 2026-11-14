@@ -52,9 +52,10 @@ def page():add(PageBreak())
 # COVER
 add(Spacer(1,113),P('CIÊNCIA DA COMPUTAÇÃO  •  ANÁLISE E PROJETO DE SISTEMAS','cover_label'),Spacer(1,19),P('ESTOQUEFÁCIL','cover_title'),Spacer(1,18),P('Documentação de análise, projeto e implementação inicial de um sistema de controle de estoque','cover_sub'),Spacer(1,64))
 add(HRFlowable(width='42%',thickness=4,color=TEAL,hAlign='CENTER'),Spacer(1,50))
-add(P('<b>Acadêmico:</b> José Carlos de Moraes Sousa','cover_sub'),Spacer(1,17),P('<b>Trabalho individual</b>','cover_sub'),Spacer(1,110),P('Franca - SP<br/>Novembro de 2026','cover_sub'))
+add(P('<b>Acadêmico:</b> José Carlos de Moraes Sousa','cover_sub'),Spacer(1,17),P('<b>Trabalho individual</b>','cover_sub'),Spacer(1,110),P('Franca - SP<br/>Novembro de 2026<br/>Entrega: 18/11/2026, até 21h','cover_sub'))
 page()
 section('1','Apresentação do projeto')
+para('<b>Disciplina:</b> Análise e Projeto de Sistemas. <b>Modalidade:</b> individual. <b>Data da documentação:</b> 14 de novembro de 2026.')
 para('O <b>EstoqueFácil</b> é um protótipo web para gerenciamento de estoque de uma pequena loja de panelas e utensílios domésticos. Ele permite consultar produtos, cadastrar itens, registrar entrada e saída de mercadorias e identificar produtos que necessitam reposição. O objetivo é aplicar análise de requisitos, modelagem de software, implementação inicial, testes e controle de versão com Git em um escopo possível de demonstrar.')
 sub('1.1 Problema e justificativa')
 para('Pequenos negócios podem controlar quantidades por anotações ou planilhas isoladas. Essa prática dificulta identificar o saldo disponível e perceber quando um item está abaixo do mínimo desejado. O sistema concentra dados e operações essenciais em uma interface web simples, com retorno imediato ao usuário.')
@@ -101,24 +102,71 @@ bullet('<b>RN07:</b> a edição de cadastro não altera o saldo; este é atualiz
 section('6','Casos de uso')
 para('O operador realiza operações diretamente pela interface do sistema. O diagrama resume as ações disponibilizadas na versão implementada.')
 img(docs/'casos_de_uso.png',maxh=345);caption('Figura 1 - Casos de uso da versão 1.0. Fonte: elaboração do projeto.')
-sub('6.1 Caso de uso principal: registrar saída de estoque')
+sub('6.1 Especificações textuais dos casos de uso')
+para('Os casos de uso a seguir registram o comportamento observado na versão implementada e foram selecionados por serem funcionalidades centrais e demonstráveis.')
+sub('UC01 - Cadastrar produto')
 table([
  ['Campo','Descrição'],
- ['Identificação','UC04 - Registrar saída de estoque'],
+ ['Ator','Operador da loja'],
+ ['Objetivo','Registrar um novo produto para acompanhamento de estoque.'],
+ ['Pré-condições','Aplicação aberta; acesso à tela de produtos.'],
+ ['Fluxo principal','1. Selecionar Novo produto; 2. Preencher nome, SKU, categoria, preço, estoque inicial e mínimo; 3. Confirmar; 4. Sistema valida os dados e verifica unicidade do SKU; 5. Produto é cadastrado, exibido e salvo localmente.'],
+ ['Fluxo alternativo','O operador pode cancelar o formulário antes de confirmar, sem alteração no estoque.'],
+ ['Exceções','Nome curto, SKU fora do padrão ou duplicado, categoria inválida, valor numérico vazio/negativo ou estoque fracionário: informar erro e não cadastrar.'],
+ ['Pós-condições','Novo produto disponível na listagem e nos indicadores; persistência local atualizada.'],
+], [117,386])
+sub('UC02 - Registrar entrada de mercadoria')
+table([
+ ['Campo','Descrição'],
+ ['Ator','Operador da loja'],
+ ['Objetivo','Acrescentar unidades ao saldo de um produto existente.'],
+ ['Pré-condições','Produto cadastrado e localizado na listagem.'],
+ ['Fluxo principal','1. Escolher Movimentar no produto; 2. Manter o tipo Entrada; 3. Informar quantidade inteira positiva; 4. Confirmar; 5. Sistema soma quantidade ao saldo, salva a movimentação e atualiza indicadores.'],
+ ['Fluxo alternativo','Operador pode cancelar antes da confirmação, sem movimentar o estoque.'],
+ ['Exceções','Quantidade zero, negativa ou fracionária: exibir mensagem de validação; nenhuma entrada é registrada.'],
+ ['Pós-condições','Saldo acrescido; evento registrado no histórico; estado salvo no navegador.'],
+], [117,386])
+sub('UC03 - Registrar saída de mercadoria')
+table([
+ ['Campo','Descrição'],
+ ['Identificação','UC03 - Registrar saída de mercadoria'],
  ['Ator','Operador da loja'],
  ['Pré-condições','Produto cadastrado; aplicação aberta no navegador.'],
  ['Fluxo principal','1. Selecionar Movimentar; 2. Escolher Saída; 3. Digitar quantidade; 4. Confirmar; 5. Sistema valida saldo e registra a movimentação.'],
- ['Fluxo alternativo','Se a quantidade não for inteira e positiva, ou exceder o saldo, o sistema informa o erro e não registra a saída.'],
+ ['Fluxo alternativo','O operador pode cancelar a operação antes de confirmar, sem alterar o saldo.'],
+ ['Exceções','Quantidade inválida (zero, negativa ou fracionária) ou maior que saldo: exibir erro, não descontar unidades e não registrar evento.'],
  ['Pós-condição','Saldo atualizado, movimentação adicionada ao histórico e estado salvo no navegador.'],
 ], [115,388])
+sub('UC04 - Pesquisar e filtrar produtos')
+table([
+ ['Campo','Descrição'],
+ ['Ator','Operador da loja'],
+ ['Objetivo','Encontrar itens e consultar rapidamente os que precisam de reposição.'],
+ ['Pré-condições','Aplicação aberta; listagem disponível.'],
+ ['Fluxo principal','1. Digitar nome, SKU ou categoria na busca; 2. Sistema filtra a lista enquanto o texto é digitado; 3. Opcionalmente marcar Somente estoque baixo; 4. Sistema mostra produtos com saldo menor ou igual ao mínimo cadastrado.'],
+ ['Fluxo alternativo','Busca sem correspondência mostra estado vazio, sem modificar cadastros; remover filtro restaura a listagem.'],
+ ['Exceções','Não há erro de negócio previsto para texto de pesquisa livre; a operação não altera dados.'],
+ ['Pós-condições','Lista visível ajustada ao filtro solicitado.'],
+], [117,386])
 sub('6.2 Rastreabilidade básica')
 para('RF01 corresponde a Cadastrar produto; RF02 a Editar produto; RF03 e RF04 a Registrar entrada/saída; RF05 e RF06 a Buscar/filtrar; RF07 a Consultar indicadores/histórico; RF08 a Exportar CSV.')
 section('7','Projeto do domínio e modelagem de classes')
-para('O modelo apresenta as entidades e responsabilidades conceituais do sistema. A implementação utiliza objetos e funções JavaScript, de modo que o diagrama de classes representa o <b>modelo de domínio</b>, e não classes JavaScript literais.')
-img(docs/'classes.png',maxh=380);caption('Figura 2 - Modelo conceitual de classes. Fonte: elaboração do projeto.')
+para('O diagrama representa <b>classes de projeto</b> e contratos de responsabilidade para o domínio. Exibe atributos privados (-), operações públicas (+), tipos, parâmetros, retornos e multiplicidades. A implementação inicial é funcional em JavaScript (objetos e funções, principalmente em stock.js e app.js), sem uma tradução literal de cada classe para a sintaxe class; essa distinção integra a documentação da evolução do sistema.')
+img(docs/'classes.png',maxh=380);caption('Figura 2 - Diagrama de classes de projeto com tipos, operações e associações. Fonte: elaboração do projeto.')
 sub('7.1 Entidades')
 para('<b>Produto:</b> possui identificação, SKU, nome, categoria, preço, saldo, estoque mínimo e data de criação. <b>Movimentação:</b> contém identificador, referência do produto, tipo, quantidade e data. <b>Serviço de estoque:</b> concentra validação, movimentação, consulta e exportação. <b>Repositório local:</b> representa a responsabilidade de carregar e salvar o estado em localStorage.')
-sub('7.2 Regras de consistência')
+sub('7.2 Tipos de projeto e multiplicidades')
+para('<b>String</b> representa texto; <b>Decimal</b>, preço monetário; <b>Integer</b>, quantidades inteiras; e <b>DateTime</b>, instante de registro. <b>TipoMovimentacao</b> admite Entrada e Saída. DadosProduto, EstadoEstoque, Indicadores e ResultadoMovimentacao são estruturas de dados de entrada ou retorno dos métodos, não classes com identidade própria.')
+para('As associações são: um ServiçoEstoque gerencia zero ou muitos Produtos; consulta zero ou muitas Movimentações; usa um RepositorioLocal; e cada Movimentação refere-se a um Produto, que pode ter nenhuma ou muitas movimentações. As multiplicidades estão indicadas em ambas as extremidades. Não foram criadas relações de herança, agregação ou composição artificiais, porque o domínio desta versão não exige esses vínculos.')
+sub('7.3 Mapeamento projeto para implementação')
+table([
+ ['Classe de projeto','Responsabilidade na implementação inicial'],
+ ['Produto','Objetos de produtos em products[]; validação por validateProduct; alerta por saldo menor ou igual a mínimo.'],
+ ['Movimentacao','Objeto gerado por moveStock e salvo no vetor history[].'],
+ ['ServicoEstoque','Operações de stock.js: createProduct, updateProduct, moveStock, searchProducts, getMetrics, toCSV.'],
+ ['RepositorioLocal','Funções de leitura e persistência via localStorage em app.js.'],
+], [135,368])
+sub('7.4 Regras de consistência')
 para('A relação de movimentação com produto utiliza productId e registra também nome/SKU do produto no momento do evento. A validação de estoque ocorre antes da criação da movimentação. Não há transações de banco de dados, pois o estado está confinado ao armazenamento local do navegador.')
 page()
 section('8','Diagrama de sequência')
@@ -154,18 +202,18 @@ section('11.3','Consulta e filtros')
 para('É possível pesquisar por texto e filtrar produtos com saldo menor ou igual ao estoque mínimo, facilitando a identificação de itens para reposição.')
 img(docs/'tela_06_estoque_baixo.png',maxh=300);caption('Figura 8 - Filtro de estoque baixo.')
 section('12','Estratégia de testes e resultados')
-para('A lógica de negócio foi exercitada por testes automatizados com o executor nativo do Node.js. Em 14/11/2026, a execução local do comando <b>node --test</b> resultou em <b>13 testes aprovados, zero falhas</b>. Também foram executadas interações de cadastro, movimentação, filtro e pesquisa em sessão de navegador isolada, sem erros JavaScript nesses percursos.')
+para('A lógica de negócio foi exercitada por testes automatizados com o executor nativo do Node.js. Em 14/11/2026, a execução local do comando <b>node --test</b> resultou em <b>21 testes aprovados, zero falhas</b>. Também foram executadas interações de cadastro, movimentação, filtro e pesquisa em sessão de navegador isolada, sem erros JavaScript nesses percursos.')
 table([
  ['Grupo','Cenários verificados','Resultado'],
- ['Cadastro','Cadastro válido, SKU duplicado, preço inválido e saldo fracionário.','Aprovado'],
+ ['Cadastro','Cadastro válido, SKU duplicado, nome curto, preço vazio ou inválido e saldo fracionário.','Aprovado'],
  ['Edição','Alteração de dados cadastrais sem mexer no saldo.','Aprovado'],
- ['Movimentação','Entrada, saída, bloqueio por saldo insuficiente e quantidade inválida.','Aprovado'],
+ ['Movimentação','Entrada, saída, tipo inválido, bloqueio por saldo insuficiente e quantidade inválida.','Aprovado'],
  ['Consulta','Busca, filtro de reposição e indicadores.','Aprovado'],
  ['Exportação','Formato CSV com separador de ponto e vírgula.','Aprovado'],
 ], [100,313,90])
 add(P('<b>Observação:</b> os testes automatizados não cobrem segurança, carga, navegadores diversos ou integrações externas. As validações de interface foram pontuais e não substituem uma campanha completa de testes manuais.','note'))
 section('13','Versionamento com Git e organização do repositório')
-para('O projeto foi estruturado com código-fonte, testes automatizados, documentação, diagramas e instruções para execução. Foi realizado um commit inicial local com a mensagem <b>feat: implementar prototipo funcional de controle de estoque</b>. Para cumprir a entrega, será necessário publicar os arquivos em repositório GitHub e informar a URL final.')
+para('O projeto contém código-fonte, testes, documentação, diagramas, instruções e <b>histórico local com vários commits reais de escopos distintos</b>, identificados por mensagens semânticas. Não são commits retrodatados nem apresentados como trabalho realizado em datas diferentes. Para a entrega, ainda é necessário <b>publicar o histórico completo em repositório remoto público ou compartilhado com EulerF</b> e incluir a URL neste PDF.')
 table([
  ['Diretório/arquivo','Responsabilidade'],
  ['index.html','Estrutura visual do sistema'],
@@ -177,15 +225,17 @@ table([
  ['README.md','Instruções de uso e limitações'],
 ], [160,343])
 sub('13.1 Convenção de commit e colaboração')
-para('Foi utilizada mensagem compatível com a proposta de Conventional Commits, com prefixo <b>feat:</b>. A ramificação principal recomendada é <b>main</b>. Mudanças futuras podem ser desenvolvidas em branches e revisadas por pull requests, caso o trabalho seja feito em dupla.')
+para('Os commits locais utilizam prefixes como <b>feat:</b>, <b>fix:</b>, <b>test:</b> e <b>docs:</b> para representar mudanças de implementação, correção, testes e documentação. O histórico registra mudanças genuínas, mas a orientação do professor pede evolução frequente ao longo do tempo: novos incrementos devem ser efetivamente implementados e versionados, sem criar datas ou autoria fictícias. A ramificação principal pode ser nomeada <b>main</b> antes da publicação.')
 sub('13.2 Como reproduzir')
 para('1. Baixar o repositório; 2. Abrir um terminal na pasta; 3. Executar <b>python -m http.server 8000</b>; 4. Acessar <b>http://localhost:8000</b> no navegador; 5. Para testes, executar <b>node --test</b> com Node.js 20 ou superior.')
+sub('13.3 Evidência do funcionamento')
+para('O vídeo MP4, com menos de 1 minuto, registra a interação real com a aplicação em navegador: visão geral, cadastro, entrada e saída, filtro de estoque baixo e busca. O vídeo mostra a execução da interface, não somente o código-fonte ou quadros estáticos.')
 section('14','Resultados, limitações e melhorias futuras')
 para('A versão entregue implementa as funções centrais planejadas para o protótipo e mantém separadas as regras de negócio da interface. O resultado serve para demonstrar análise, projeto, implementação inicial, validação e versionamento. Não contempla login, múltiplas lojas, emissão fiscal, operações concorrentes, banco de dados remoto nem integração com marketplaces.')
 para('Como evolução, recomenda-se adicionar autenticação, API, banco de dados, controle de permissões, backups e integração com pedidos de venda, após novo levantamento de requisitos.')
 section('15','Conclusão')
-para('O EstoqueFácil evidencia a passagem do <b>que o sistema deve fazer</b> para <b>como o sistema é construído</b>, a partir de requisitos, regras, modelos, interface e testes. A escolha de um escopo reduzido permitiu implementar e demonstrar funcionalidades verificáveis. A publicação do repositório remoto e a inserção de seu link no PDF constituem a etapa final antes do envio da atividade.')
-add(Spacer(1,11),P('<b>Link do repositório:</b> [PENDENTE - inserir URL pública/compartilhada do GitHub antes de entregar].','note'))
+para('O EstoqueFácil evidencia a passagem do <b>que o sistema deve fazer</b> para <b>como o sistema é construído</b>, a partir de requisitos, regras, modelos, interface e testes. A escolha de um escopo reduzido permitiu implementar e demonstrar funcionalidades verificáveis. A publicação do histórico completo em um repositório acessível, a conferência da autoria e a inserção do link verdadeiro no PDF são etapas obrigatórias antes do envio final.')
+add(Spacer(1,11),P('<b>Link do repositório Git:</b> [PENDENTE - substituir pelo endereço real antes do envio]. <b>Aviso:</b> esta versão do PDF ainda não pode ser considerada a entrega final sem o link.','note'))
 
 def on_page(c,doc):
  c.saveState()
