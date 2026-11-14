@@ -1,0 +1,16 @@
+digraph UseCases {
+ graph [label="Diagrama de casos de uso • EstoqueFácil", labelloc=t, fontsize=19, fontname="DejaVu Sans", bgcolor="white", ranksep=.48, nodesep=.45, pad=.28];
+ rankdir=LR;
+ node [fontname="DejaVu Sans",fontsize=11]; edge [color="#7894a3", penwidth=1.4];
+ operador [shape=plaintext,label="OPERADOR\nDA LOJA",fontcolor="#184456",fontsize=12];
+ subgraph cluster_system {label="Sistema EstoqueFácil"; fontname="DejaVu Sans";style="rounded"; color="#b7dacf";fillcolor="#f3fbf8"; bgcolor="#f3fbf8";
+ cadastrar [label="Cadastrar produto",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+ editar [label="Editar produto",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+ listar [label="Buscar e filtrar produtos",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+ entrada [label="Registrar entrada",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+ saida [label="Registrar saída",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+ consultar [label="Consultar indicadores\ne histórico",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+ exportar [label="Exportar CSV",shape=ellipse,style=filled,fillcolor="white",color="#8bd8c2"];
+ }
+ operador -> {cadastrar editar listar entrada saida consultar exportar} [arrowhead=none];
+}

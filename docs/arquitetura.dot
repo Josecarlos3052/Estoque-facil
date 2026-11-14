@@ -1,0 +1,11 @@
+digraph Architecture {
+ graph [label="Arquitetura da implementação", labelloc=t,fontsize=19,fontname="DejaVu Sans",rankdir=LR,pad=.3,bgcolor="white", nodesep=.7,ranksep=.72];
+ node [shape=box,style="rounded,filled",fillcolor="#eef9f6",color="#78c8b4",fontname="DejaVu Sans",fontsize=12,margin=".22,.15"];
+ UI [label="Interface web\nindex.html + style.css"];
+ CTRL [label="Interação e estado\napp.js"];
+ DOMAIN [label="Regras de negócio\nstock.js"];
+ STORE [label="Persistência local\nlocalStorage"];
+ UI -> CTRL [label="eventos da tela",fontname="DejaVu Sans",fontsize=10];
+ CTRL -> DOMAIN [label="validação / cálculos",fontname="DejaVu Sans",fontsize=10];
+ CTRL -> STORE [label="salvar / recuperar",fontname="DejaVu Sans",fontsize=10];
+}

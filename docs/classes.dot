@@ -1,0 +1,12 @@
+digraph Classes {
+ graph [label="Modelo conceitual de classes • EstoqueFácil",labelloc=t, fontsize=19,fontname="DejaVu Sans",bgcolor="white",pad=.28,ranksep=.9,nodesep=.85];
+ rankdir=LR;node [shape=record, fontname="DejaVu Sans",fontsize=10,style="filled,rounded",fillcolor="#f2fbf8",color="#54ad97",penwidth=1.6];edge [fontname="DejaVu Sans",fontsize=10, color="#4c6677", penwidth=1.5];
+ Product [label="{Produto|id: string\lsku: string\lnome: string\lcategoria: string\lpreco: number\lsaldo: integer\lminimo: integer\l|validar()\l}"];
+ Movement [label="{Movimentacao|id: string\lprodutoId: string\ltipo: ENTRADA / SAÍDA\lquantidade: integer\ldata: datetime\l}"];
+ Stock [label="{ServicoEstoque|cadastrar()\lalterarCadastro()\lmovimentar()\lconsultarIndicadores()\lfiltrarProdutos()\lexportarCSV()\l}"];
+ Storage [label="{RepositorioLocal|salvarEstado()\lcarregarEstado()\l}"];
+ Stock -> Product [label="manipula 0..*",arrowhead=vee];
+ Stock -> Movement [label="cria 0..*",arrowhead=vee];
+ Stock -> Storage [label="persiste",arrowhead=vee];
+ Movement -> Product [label="pertence a 1",arrowhead=vee,style=dashed];
+}
