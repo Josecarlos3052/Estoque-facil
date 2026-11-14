@@ -74,6 +74,7 @@ with sync_playwright() as p:
     page.once("dialog", lambda dialog: dialog.accept())
     page.locator('#productRows button[data-action="delete"]').first.click()
     assert page.locator("#metricProducts").inner_text() == "4"
+    page.wait_for_timeout(1600)  # aguarda o aviso temporário desaparecer antes da captura
 
     page.locator('.nav-link[data-view="movements"]').click()
     assert page.locator("#movementRows tr").count() == 2
