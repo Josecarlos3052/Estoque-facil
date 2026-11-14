@@ -22,3 +22,15 @@
 .action-btn.danger:hover{border-color:#d98b83;color:#a53d32;background:#fff8f7}
 @media(max-width:950px){.overview-grid{grid-template-columns:1fr}}
 @media(max-width:700px){.sidebar-nav{display:none}.movement-toolbar .filter-field{width:100%;justify-content:space-between}.movement-toolbar .filter-field select{flex:1}}
+
+@media(max-width:700px){
+  .shell{display:block}
+  .sidebar{display:flex;width:100%;padding:12px 14px 10px;gap:10px}
+  .brand{padding:0;min-width:max-content;font-size:18px}
+  .brand-symbol{width:31px;height:32px;font-size:20px}
+  .brand small,.sidebar-caption,.side-card,.sidebar-bottom{display:none}
+  .sidebar-nav{display:flex;flex-direction:row;gap:5px;flex:1;justify-content:flex-end}
+  .nav-link{width:auto;min-height:36px;margin:0;padding:7px 9px;font-size:11px;gap:5px;white-space:nowrap}
+  .nav-link span{font-size:15px}
+  .main{width:100%}
+}
