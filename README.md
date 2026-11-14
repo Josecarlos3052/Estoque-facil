@@ -65,4 +65,4 @@ Os dados são **de demonstração** e ficam no `localStorage`; limpar os dados d
 
 A pasta já inclui **histórico Git com commits reais** e não deve ser iniciada do zero. Leia [`docs/PUBLICAR_NO_GITHUB.md`](docs/PUBLICAR_NO_GITHUB.md) e [`docs/CHECKLIST_ENUNCIADO.md`](docs/CHECKLIST_ENUNCIADO.md). O trabalho acadêmico requer repositório público ou acesso concedido ao usuário `EulerF` e o link verdadeiro precisa constar no PDF antes da entrega.
 
-Revise os materiais e certifique-se de conseguir explicar as regras e os diagramas na demonstração. O histórico de commits deve refletir o trabalho real, sem autoria ou datas fictícias.
+Revise os materiais e certifique-se de conseguir explicar as regras e os diagramas na demonstração. Os commits gerados neste pacote utilizam uma identidade genérica do ambiente; configure nome/e-mail próprios para alterações feitas por você. O histórico de commits deve refletir o trabalho real, sem autoria ou datas fictícias.

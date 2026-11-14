@@ -34,7 +34,18 @@ git push -u origin main
 
 Se o GitHub pedir autenticação, siga o fluxo de login do Git Credential Manager no Windows. **Não envie sua senha ou token em conversas.**
 
-## 3. Verificar antes de enviar
+## 3. Configurar sua identidade para os próximos commits
+
+Os commits já existentes neste pacote foram gravados com uma **identidade genérica de desenvolvimento** (`Autor do projeto <autor@exemplo.invalid>`); não serão automaticamente atribuídos à sua conta do GitHub. Para as **suas próprias alterações futuras**, configure um nome e um e-mail que você utiliza ou verificou no GitHub:
+
+```bash
+git config user.name "José Carlos de Moraes Sousa"
+git config user.email "SEU-EMAIL-VERIFICADO-NO-GITHUB"
+```
+
+Depois de estudar o código, faça mudanças genuínas e registre-as em novos commits. **Não altere retroativamente a autoria ou as datas de commits que você não realizou.**
+
+## 4. Verificar antes de enviar
 
 1. Abra o repositório na web e clique na aba **Commits**. Confirme que aparecem várias mensagens `feat:`, `fix:`, `test:` e `docs:`.
 2. Copie o endereço real do repositório, de preferência no formato `https://github.com/SEU-USUARIO/estoque-facil`.

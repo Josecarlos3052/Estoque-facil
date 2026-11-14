@@ -19,6 +19,7 @@ Base: instruções da avaliação na plataforma e texto do Notion "Trabalho Prá
 | MP4 com até 1 minuto, aplicação executada | Atendido | docs/Demo_EstoqueFacil_Interativo.mp4 (verificar duração) |
 | Controle de versão Git e commits semânticos | Atendido localmente | `git log --oneline` dentro da pasta EstoqueFacil |
 | Commits frequentes, em pequenas etapas, ao longo do tempo | Parcial | Vários commits reais, porém em período curto; o professor avaliará o histórico |
+| Autoria Git vinculada à conta do estudante | **PENDENTE** | Commits do pacote usam identidade genérica; os próximos commits devem usar nome/e-mail verificados e representar alterações próprias |
 | README com nome, integrante e como executar | Atendido | README.md |
 | Repositório Git público ou acesso concedido a EulerF | **PENDENTE** | Criar repo e executar `git push` |
 | Link do repositório incluído no PDF | **PENDENTE** | Substituir `[PENDENTE]` pelo URL verdadeiro |
