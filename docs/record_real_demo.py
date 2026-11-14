@@ -1,0 +1,58 @@
+"""Registra uma demonstração audiovisual (sem narração) usando código real da interface em Chromium isolado."""
+from playwright.sync_api import sync_playwright
+from pathlib import Path
+import re,time,subprocess
+root=Path(__file__).resolve().parents[1]; docs=root/'docs'; recordings=docs/'_recordings';recordings.mkdir(exist_ok=True)
+html=(root/'index.html').read_text()
+css=re.sub(r'@import[^;]+;','',(root/'src/style.css').read_text(),count=1)
+html=re.sub(r'<link rel="stylesheet"[^>]+>','<style>'+css+'</style>',html)
+html=re.sub(r'<script type="module"[^>]+></script>','',html)
+stock=(root/'src/stock.js').read_text().replace('export ','')
+app=re.sub(r'^import .*?;\n','',(root/'src/app.js').read_text(),count=1)
+with sync_playwright() as p:
+ browser=p.chromium.launch(executable_path='/usr/bin/chromium',headless=True,args=['--no-sandbox','--disable-dev-shm-usage','--no-proxy-server'])
+ context=browser.new_context(viewport={'width':1280,'height':720},record_video_dir=str(recordings),record_video_size={'width':1280,'height':720},accept_downloads=True)
+ page=context.new_page()
+ page.set_content(html,wait_until='domcontentloaded')
+ page.evaluate("""() => {const cache={};Object.defineProperty(window,'localStorage',{configurable:true,value:{getItem:k=>cache[k]??null,setItem:(k,v)=>cache[k]=v}})}""")
+ page.add_script_tag(content=stock+'\n'+app)
+ page.evaluate("""() => {
+  const bar=document.createElement('div');bar.id='demoBar';bar.style.cssText='position:fixed;z-index:99999;left:260px;bottom:14px;right:20px;background:rgba(11,35,50,.94);border-left:5px solid #35d9b8;border-radius:8px;color:#fff;font:700 17px Arial,sans-serif;line-height:1.5;padding:10px 16px;pointer-events:none';document.body.append(bar);
+  const cursor=document.createElement('div');cursor.id='demoCursor';cursor.style.cssText='position:fixed;z-index:100001;width:22px;height:22px;border:3px solid #ffb548;background:#ffb54855;border-radius:50%;pointer-events:none;left:0;top:0;transform:translate(-50%,-50%)';document.body.append(cursor);
+  document.addEventListener('mousemove',e=>{cursor.style.left=e.clientX+'px';cursor.style.top=e.clientY+'px'});
+ }""")
+ def caption(t):page.locator('#demoBar').evaluate('(el,t)=>el.textContent=t',t)
+ caption('1/6  VISÃO GERAL — 4 produtos e alertas automáticos')
+ page.mouse.move(1100,235,steps=13);time.sleep(4)
+ caption('2/6  CADASTRO — dados do produto e SKU exclusivo')
+ page.click('#addProduct');time.sleep(1)
+ page.locator('#productForm [name=name]').press_sequentially('Cacarola antiaderente 22 cm',delay=45)
+ page.locator('#productForm [name=sku]').fill('CAC-022')
+ page.locator('#productForm [name=price]').fill('79.90')
+ page.locator('#productForm [name=stock]').fill('9')
+ page.locator('#productForm [name=minimum]').fill('4')
+ time.sleep(2)
+ page.locator('#productForm button[type=submit]').click(); time.sleep(3)
+ caption('3/6  MOVIMENTAÇÃO — entrada de 5 unidades')
+ page.locator('button[data-action="move"]').first.click();time.sleep(1)
+ page.locator('#moveForm [name=quantity]').fill('5');time.sleep(2)
+ page.locator('#moveForm button[type=submit]').click();time.sleep(3)
+ caption('4/6  SAÍDA — 2 unidades retiradas com validação de saldo')
+ page.locator('button[data-action="move"]').first.click();time.sleep(1)
+ page.locator('#moveForm [name=type]').select_option('SAÍDA')
+ page.locator('#moveForm [name=quantity]').fill('2');time.sleep(2)
+ page.locator('#moveForm button[type=submit]').click();time.sleep(3)
+ caption('5/6  ALERTAS — produtos abaixo do estoque mínimo')
+ page.locator('#onlyLow').check();time.sleep(4)
+ caption('6/6  BUSCA — pesquisa rápida por nome do produto')
+ page.locator('#onlyLow').uncheck()
+ page.locator('#searchInput').press_sequentially('frigideira',delay=80);time.sleep(4)
+ page.locator('#searchInput').fill('')
+ caption('ESTOQUEFÁCIL — código testado e preparado para GitHub')
+ time.sleep(4)
+ video=page.video
+ context.close();browser.close()
+ temp=Path(video.path())
+ output=Path('/mnt/data/Demo_EstoqueFacil_Interativo.mp4')
+ subprocess.run(['ffmpeg','-hide_banner','-loglevel','error','-y','-i',str(temp),'-c:v','libx264','-preset','veryfast','-crf','22','-pix_fmt','yuv420p','-movflags','+faststart','-an',str(output)],check=True)
+ print('VIDEO_OK',output,output.stat().st_size)
