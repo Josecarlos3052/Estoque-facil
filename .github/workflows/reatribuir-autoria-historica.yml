@@ -1,0 +1,106 @@
+name: Corrigir autoria dos commits históricos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/reatribuir-autoria-historica.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  corrigir-autoria:
+    if: github.event.head_commit.message == 'chore: corrigir autoria historica'
+    runs-on: ubuntu-latest
+    env:
+      TARGET_NAME: Josecarlos3052
+      TARGET_EMAIL: 151560723+Josecarlos3052@users.noreply.github.com
+      PLACEHOLDER_EMAIL: autor@exemplo.invalid
+      BOT_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
+    steps:
+      - name: Obter histórico completo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Conferir e guardar o histórico original
+        shell: bash
+        run: |
+          set -euo pipefail
+          git checkout -B main "$GITHUB_SHA"
+
+          author_count="$(git log "$GITHUB_SHA" --format='%ae' | grep -Fxc "$PLACEHOLDER_EMAIL" || true)"
+          committer_count="$(git log "$GITHUB_SHA" --format='%ce' | grep -Fxc "$PLACEHOLDER_EMAIL" || true)"
+          test "$author_count" -eq 9
+          test "$committer_count" -eq 9
+
+          echo "BACKUP_BRANCH=backup/main-before-author-fix-${GITHUB_SHA:0:7}" >> "$GITHUB_ENV"
+          echo "ORIGINAL_USER_AUTHOR_COUNT=$(git log "$GITHUB_SHA" --format='%ae' | grep -Fxc "$TARGET_EMAIL" || true)" >> "$GITHUB_ENV"
+          echo "ORIGINAL_USER_COMMITTER_COUNT=$(git log "$GITHUB_SHA" --format='%ce' | grep -Fxc "$TARGET_EMAIL" || true)" >> "$GITHUB_ENV"
+          echo "ORIGINAL_BOT_AUTHOR_COUNT=$(git log "$GITHUB_SHA" --format='%ae' | grep -Fxc "$BOT_EMAIL" || true)" >> "$GITHUB_ENV"
+          echo "ORIGINAL_BOT_COMMITTER_COUNT=$(git log "$GITHUB_SHA" --format='%ce' | grep -Fxc "$BOT_EMAIL" || true)" >> "$GITHUB_ENV"
+
+          git log --reverse --format='%T%x09%s%x09%aI%x09%cI' "$GITHUB_SHA" > "$RUNNER_TEMP/history-before.tsv"
+          git push origin "main:refs/heads/backup/main-before-author-fix-${GITHUB_SHA:0:7}"
+          git bundle create "$RUNNER_TEMP/estoquefacil-history-before-author-fix.bundle" --all
+
+      - name: Guardar cópia de segurança do histórico
+        uses: actions/upload-artifact@v4
+        with:
+          name: historico-original-antes-da-correcao
+          path: ${{ runner.temp }}/estoquefacil-history-before-author-fix.bundle
+          retention-days: 30
+
+      - name: Reatribuir somente os nove commits provisórios
+        shell: bash
+        run: |
+          set -euo pipefail
+          FILTER_BRANCH_SQUELCH_WARNING=1 git filter-branch --force --env-filter '
+            if [ "$GIT_AUTHOR_EMAIL" = "$PLACEHOLDER_EMAIL" ]; then
+              export GIT_AUTHOR_NAME="$TARGET_NAME"
+              export GIT_AUTHOR_EMAIL="$TARGET_EMAIL"
+            fi
+            if [ "$GIT_COMMITTER_EMAIL" = "$PLACEHOLDER_EMAIL" ]; then
+              export GIT_COMMITTER_NAME="$TARGET_NAME"
+              export GIT_COMMITTER_EMAIL="$TARGET_EMAIL"
+            fi
+          ' -- main
+
+      - name: Validar conteúdo, datas e demais autores
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git log main --format='%ae' | grep -Fxc "$PLACEHOLDER_EMAIL" || true)" -eq 0
+          test "$(git log main --format='%ce' | grep -Fxc "$PLACEHOLDER_EMAIL" || true)" -eq 0
+
+          user_authors="$(git log main --format='%ae' | grep -Fxc "$TARGET_EMAIL" || true)"
+          user_committers="$(git log main --format='%ce' | grep -Fxc "$TARGET_EMAIL" || true)"
+          bot_authors="$(git log main --format='%ae' | grep -Fxc "$BOT_EMAIL" || true)"
+          bot_committers="$(git log main --format='%ce' | grep -Fxc "$BOT_EMAIL" || true)"
+
+          test "$user_authors" -eq "$((ORIGINAL_USER_AUTHOR_COUNT + 9))"
+          test "$user_committers" -eq "$((ORIGINAL_USER_COMMITTER_COUNT + 9))"
+          test "$bot_authors" -eq "$ORIGINAL_BOT_AUTHOR_COUNT"
+          test "$bot_committers" -eq "$ORIGINAL_BOT_COMMITTER_COUNT"
+
+          git log --reverse --format='%T%x09%s%x09%aI%x09%cI' main > "$RUNNER_TEMP/history-after.tsv"
+          diff -u "$RUNNER_TEMP/history-before.tsv" "$RUNNER_TEMP/history-after.tsv"
+
+      - name: Remover a rotina temporária e publicar o histórico corrigido
+        shell: bash
+        run: |
+          set -euo pipefail
+          git rm .github/workflows/reatribuir-autoria-historica.yml
+          sed -i "/if: github.event_name != 'push' || github.event.head_commit.message != 'chore: corrigir autoria historica'/d" .github/workflows/validar-evidencias.yml
+
+          git config user.name "github-actions[bot]"
+          git config user.email "$BOT_EMAIL"
+          git add .github/workflows/validar-evidencias.yml
+          git commit -m "chore: remove fluxo temporario de correcao de autoria"
+
+          git push --force-with-lease="refs/heads/main:$GITHUB_SHA" origin main:refs/heads/main
+          git fetch origin main
+          test "$(git rev-parse main)" = "$(git rev-parse origin/main)"
+
+          git push origin --delete "$BACKUP_BRANCH"
