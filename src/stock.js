@@ -5,6 +5,12 @@ export function validateProduct(input, products = [], editingId = null) {
   const name = String(input.name ?? "").trim();
   const sku = String(input.sku ?? "").trim().toUpperCase();
   const category = String(input.category ?? "").trim();
+  // Number("") resulta em zero; campos vazios não devem ser aceitos como valores digitados.
+  for (const key of ["price", "stock", "minimum"]) {
+    if (input[key] == null || String(input[key]).trim() === "") {
+      throw new Error(`${key === "price" ? "Preço" : key === "stock" ? "Estoque inicial" : "Estoque mínimo"} é obrigatório.`);
+    }
+  }
   const price = Number(input.price);
   const stock = Number(input.stock);
   const minimum = Number(input.minimum);
