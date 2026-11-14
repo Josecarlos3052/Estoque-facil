@@ -61,8 +61,14 @@ SKU único, preço e estoques não negativos, campos numéricos obrigatórios, q
 
 Os dados são **de demonstração** e ficam no `localStorage`; limpar os dados do navegador pode apagá-los. Não há banco de dados remoto, autenticação, multiusuário, backup automático nem integração com plataformas de vendas. O valor de estoque é estimado pelo preço cadastrado, não pelo custo das mercadorias.
 
-## Publicação GitHub / entrega
+## Repositório e entrega acadêmica
 
-A pasta já inclui **histórico Git com commits reais** e não deve ser iniciada do zero. Leia [`docs/PUBLICAR_NO_GITHUB.md`](docs/PUBLICAR_NO_GITHUB.md) e [`docs/CHECKLIST_ENUNCIADO.md`](docs/CHECKLIST_ENUNCIADO.md). O trabalho acadêmico requer repositório público ou acesso concedido ao usuário `EulerF` e o link verdadeiro precisa constar no PDF antes da entrega.
+**Repositório público:** [github.com/Josecarlos3052/Estoque-facil](https://github.com/Josecarlos3052/Estoque-facil)  
+**Documentação acadêmica:** [`docs/Documentacao_EstoqueFacil.pdf`](docs/Documentacao_EstoqueFacil.pdf)  
+**Vídeo de demonstração:** [`docs/Demo_EstoqueFacil_Interativo.mp4`](docs/Demo_EstoqueFacil_Interativo.mp4)
 
-Revise os materiais e certifique-se de conseguir explicar as regras e os diagramas na demonstração. Os commits gerados neste pacote utilizam uma identidade genérica do ambiente; configure nome/e-mail próprios para alterações feitas por você. O histórico de commits deve refletir o trabalho real, sem autoria ou datas fictícias.
+O trabalho exige PDF com o endereço do repositório, vídeo MP4 de até um minuto e código público ou acesso ao professor. O documento final inclui o URL acima.
+
+O histórico inicial contém oito commits incrementais realizados em 14/11/2026. Seus autores estão registrados como `Autor do projeto` (identidade genérica de preparação do pacote). O histórico não deve ser retrodatado ou reescrito para aparentar uma cronologia diferente. Para registrar suas contribuições futuras, configure nome e e-mail próprios no GitHub Desktop e realize alterações efetivas, com commits semânticos nas datas em que ocorrerem.
+
+Consulte [`docs/CHECKLIST_ENUNCIADO.md`](docs/CHECKLIST_ENUNCIADO.md) para os requisitos e [`docs/PUBLICAR_NO_GITHUB.md`](docs/PUBLICAR_NO_GITHUB.md) para atualizar os arquivos por meio do GitHub Desktop. A revisão, a autoria e a coerência entre código, documentação e demonstração são essenciais para a avaliação.

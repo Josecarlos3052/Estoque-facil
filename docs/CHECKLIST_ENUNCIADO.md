@@ -17,13 +17,13 @@ Base: instruções da avaliação na plataforma e texto do Notion "Trabalho Prá
 | Multiplicidade em todos os relacionamentos e classificação adequada | Atendido | PDF, diagrama e seção 7.2 |
 | Implementação real, funcionando e relacionada à documentação | Atendido para o escopo escolhido | index.html, src/*; testes e vídeo |
 | MP4 com até 1 minuto, aplicação executada | Atendido | docs/Demo_EstoqueFacil_Interativo.mp4 (verificar duração) |
-| Controle de versão Git e commits semânticos | Atendido localmente | `git log --oneline` dentro da pasta EstoqueFacil |
+| Controle de versão Git e commits semânticos | Atendido no repositório público | GitHub > Commits; histórico inicial de oito commits |
 | Commits frequentes, em pequenas etapas, ao longo do tempo | Parcial | Vários commits reais, porém em período curto; o professor avaliará o histórico |
 | Autoria Git vinculada à conta do estudante | **PENDENTE** | Commits do pacote usam identidade genérica; os próximos commits devem usar nome/e-mail verificados e representar alterações próprias |
 | README com nome, integrante e como executar | Atendido | README.md |
-| Repositório Git público ou acesso concedido a EulerF | **PENDENTE** | Criar repo e executar `git push` |
-| Link do repositório incluído no PDF | **PENDENTE** | Substituir `[PENDENTE]` pelo URL verdadeiro |
+| Repositório Git público ou acesso concedido a EulerF | Atendido: público | https://github.com/Josecarlos3052/Estoque-facil |
+| Link do repositório incluído no PDF | Atendido no PDF final preparado; publicar no GitHub | `docs/Documentacao_EstoqueFacil.pdf` nesta atualização |
 | Entrega individual ou dupla | Atendido como individual | Capa |
 | PDF + MP4 anexados na plataforma | **PENDENTE** | Upload na atividade, até 18/11/2026 às 21h (prazo no enunciado) |
 
-**Importante:** este checklist reflete os requisitos recuperados dos materiais disponibilizados. A publicação remota e o envio na plataforma não foram executados. Antes de entregar, verifique o enunciado na origem e revise os arquivos.
+**Importante:** o repositório foi confirmado como público em 14/11/2026. Esta atualização ainda precisa ser aplicada ao repositório pelo estudante, e os arquivos PDF e MP4 ainda precisam ser enviados na plataforma de avaliação. Revise o trabalho e confirme a autoria das suas contribuições antes de entregar.

@@ -1,56 +1,16 @@
-# Como publicar o EstoqueFácil preservando o histórico Git
+# Como atualizar este repositório no GitHub Desktop
 
-Este pacote **já contém a pasta `.git/` e vários commits semânticos**. Não envie somente os arquivos pelo botão **Upload files** do GitHub, pois isso não preserva o histórico já criado.
+**Repositório público:** https://github.com/Josecarlos3052/Estoque-facil
 
-## 1. Criar repositório vazio
+O repositório já foi publicado. **Não crie outro repositório** nem reinicialize a pasta `.git`.
 
-1. Abra <https://github.com/new> e entre na sua conta.
-2. Nome sugerido: `estoque-facil`.
-3. Marque **Public**. Se escolher privado, conceda acesso ao usuário GitHub **EulerF**.
-4. **Não** selecione a criação de README, `.gitignore` ou licença automática.
-5. Clique em **Create repository**. Copie a URL apresentada.
+1. No GitHub Desktop, selecione `Estoque-facil` e use **Repository > Show in Explorer**.
+2. Copie os arquivos de atualização para as mesmas posições na pasta local, substituindo as versões anteriores.
+3. Confira as alterações na guia **Changes** e revise os arquivos atualizados.
+4. Em **File > Options > Git**, confirme nome e e-mail de uma conta sua e verificada.
+5. Registre um commit com mensagem semântica, por exemplo `docs: atualiza documentacao final e link do repositorio`.
+6. Clique **Push origin** e confira o arquivo em [`docs/Documentacao_EstoqueFacil.pdf`](Documentacao_EstoqueFacil.pdf).
 
-## 2. Publicar *todos* os commits existentes
+O histórico inicial registra oito commits em 14/11/2026, feitos com identidade genérica. Preserve esse histórico; não altere datas ou autores para simular desenvolvimento anterior. Para demonstrar sua própria evolução, faça mudanças verdadeiras e crie commits nos dias correspondentes.
 
-Extraia o ZIP do projeto preservando a pasta `.git`. No terminal, entre na pasta `EstoqueFacil`:
-
-```bash
-# Confirme que há vários commits semânticos:
-git log --oneline
-# Padronize o nome da ramificação principal:
-git branch -M main
-# Troque SEU-USUARIO pela conta real:
-git remote add origin https://github.com/SEU-USUARIO/estoque-facil.git
-# Publique o histórico completo:
-git push -u origin main
-```
-
-Se aparecer `remote origin already exists`, utilize:
-
-```bash
-git remote set-url origin https://github.com/SEU-USUARIO/estoque-facil.git
-git push -u origin main
-```
-
-Se o GitHub pedir autenticação, siga o fluxo de login do Git Credential Manager no Windows. **Não envie sua senha ou token em conversas.**
-
-## 3. Configurar sua identidade para os próximos commits
-
-Os commits já existentes neste pacote foram gravados com uma **identidade genérica de desenvolvimento** (`Autor do projeto <autor@exemplo.invalid>`); não serão automaticamente atribuídos à sua conta do GitHub. Para as **suas próprias alterações futuras**, configure um nome e um e-mail que você utiliza ou verificou no GitHub:
-
-```bash
-git config user.name "José Carlos de Moraes Sousa"
-git config user.email "SEU-EMAIL-VERIFICADO-NO-GITHUB"
-```
-
-Depois de estudar o código, faça mudanças genuínas e registre-as em novos commits. **Não altere retroativamente a autoria ou as datas de commits que você não realizou.**
-
-## 4. Verificar antes de enviar
-
-1. Abra o repositório na web e clique na aba **Commits**. Confirme que aparecem várias mensagens `feat:`, `fix:`, `test:` e `docs:`.
-2. Copie o endereço real do repositório, de preferência no formato `https://github.com/SEU-USUARIO/estoque-facil`.
-3. Inclua esse link no **PDF da documentação**, substituindo o campo `[PENDENTE]` e confira que o endereço abre sem erros para o professor.
-4. Confirme que o MP4 mostra o sistema executado em vez de apenas código ou slides; a duração deve ser inferior a 1 minuto.
-5. Revise a documentação e o código para conseguir explicar o desenvolvimento na apresentação.
-
-**Atenção:** o enunciado também solicita commits frequentes ao longo do desenvolvimento. O histórico deste pacote contém commits incrementais reais, mas concentrados no mesmo período. Não invente datas/autores: desenvolva e publique correções ou melhorias reais ao longo dos próximos dias, se possível. A aceitação final depende da avaliação do professor.
+Antes da entrega, confira se o PDF contém o URL correto, se o MP4 está acessível, se o repositório é público e se você consegue explicar os diagramas, requisitos e o código.
