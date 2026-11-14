@@ -1,7 +1,7 @@
 digraph Classes {
- graph [label="Diagrama de Classes de Projeto | EstoqueFácil",labelloc=t,fontsize=18,fontname="DejaVu Sans",bgcolor="white",pad=.25,nodesep=.52,ranksep=.85,layout=dot,rankdir=TB,splines=polyline];
- node [shape=plain, fontname="DejaVu Sans", fontsize=11];
- edge [fontname="DejaVu Sans",fontsize=10, color="#526c7a",penwidth=1.35,dir=none];
+ graph [label="Diagrama de Classes de Projeto | EstoqueFácil 1.1",labelloc=t,fontsize=18,fontname="DejaVu Sans",bgcolor="white",pad=.25,nodesep=.52,ranksep=.85,layout=dot,rankdir=TB,splines=polyline];
+ node [shape=plain,fontname="DejaVu Sans",fontsize=11];
+ edge [fontname="DejaVu Sans",fontsize=10,color="#526c7a",penwidth=1.35,dir=none];
  Produto [label=<
  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#4ca895" BGCOLOR="#f7fbfa">
  <TR><TD BGCOLOR="#d7f2ea"><B>Produto</B></TD></TR>
@@ -21,7 +21,7 @@ digraph Classes {
  <TR><TD BGCOLOR="#c9e6f2"><B>ServicoEstoque</B></TD></TR>
  <TR><TD ALIGN="LEFT">- produtos: List&lt;Produto&gt;<BR ALIGN="LEFT"/>- historico: List&lt;Movimentacao&gt;</TD></TR>
  <HR/>
- <TR><TD ALIGN="LEFT">+ cadastrar(dados: DadosProduto, id: String): Produto<BR ALIGN="LEFT"/>+ editar(id: String, dados: DadosProduto): List&lt;Produto&gt;<BR ALIGN="LEFT"/>+ movimentar(id: String, tipo: TipoMovimentacao,<BR ALIGN="LEFT"/>    qtd: Integer): ResultadoMovimentacao<BR ALIGN="LEFT"/>+ buscar(termo: String, somenteBaixo: Boolean): List&lt;Produto&gt;<BR ALIGN="LEFT"/>+ indicadores(): Indicadores<BR ALIGN="LEFT"/>+ exportarCsv(): String</TD></TR>
+ <TR><TD ALIGN="LEFT">+ cadastrar(dados: DadosProduto, id: String): Produto<BR ALIGN="LEFT"/>+ editar(id: String, dados: DadosProduto): List&lt;Produto&gt;<BR ALIGN="LEFT"/>+ movimentar(id: String, tipo: TipoMovimentacao, qtd: Integer): ResultadoMovimentacao<BR ALIGN="LEFT"/>+ buscar(termo: String, somenteBaixo: Boolean): List&lt;Produto&gt;<BR ALIGN="LEFT"/>+ indicadores(): Indicadores<BR ALIGN="LEFT"/>+ excluir(id: String): Boolean<BR ALIGN="LEFT"/>+ exportarCsv(): String</TD></TR>
  </TABLE>>];
  RepositorioLocal [label=<
  <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" COLOR="#4ca895" BGCOLOR="#f7fbfa">

@@ -1,0 +1,83 @@
+name: Validar projeto e atualizar evidências
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "docs/Documentacao_EstoqueFacil.pdf"
+      - "docs/Demo_EstoqueFacil_Interativo.mp4"
+      - "docs/*.png"
+      - "docs/*.svg"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validar-e-gerar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar repositório
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Instalar ferramentas do sistema
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz ffmpeg fonts-dejavu-core poppler-utils
+      - name: Instalar bibliotecas Python e Chromium
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install reportlab pillow playwright
+          python -m playwright install --with-deps chromium
+      - name: Testar regras de negócio
+        run: npm test
+      - name: Verificar interface e gerar capturas
+        run: python docs/verify_ui.py
+      - name: Renderizar diagramas atualizados
+        run: |
+          dot -Tpng docs/casos_de_uso.dot -o docs/casos_de_uso.png
+          dot -Tpng docs/classes.dot -o docs/classes.png
+          dot -Tsvg docs/classes.dot -o docs/classes.svg
+          dot -Tpng docs/arquitetura.dot -o docs/arquitetura.png
+      - name: Gravar vídeo da versão atual
+        run: python docs/record_real_demo.py
+      - name: Gerar documentação PDF
+        run: python docs/build_pdf.py
+      - name: Conferir duração e arquivos gerados
+        run: |
+          test -s docs/Documentacao_EstoqueFacil.pdf
+          test -s docs/Demo_EstoqueFacil_Interativo.mp4
+          duration=$(ffprobe -v error -show_entries format=duration -of csv=p=0 docs/Demo_EstoqueFacil_Interativo.mp4)
+          python -c "import sys; d=float(sys.argv[1]); print(f'Duração do vídeo: {d:.2f}s'); assert 0 < d < 60" "$duration"
+          pdfinfo docs/Documentacao_EstoqueFacil.pdf | grep -E 'Pages|Page size'
+      - name: Publicar artefatos da validação
+        uses: actions/upload-artifact@v4
+        with:
+          name: EstoqueFacil-evidencias
+          if-no-files-found: error
+          path: |
+            docs/Documentacao_EstoqueFacil.pdf
+            docs/Demo_EstoqueFacil_Interativo.mp4
+            docs/*.png
+            docs/*.svg
+      - name: Salvar evidências atualizadas no GitHub
+        if: github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/*.png docs/*.svg docs/*.pdf docs/*.mp4
+          if ! git diff --cached --quiet; then
+            git commit -m "docs: atualiza evidencias e documentacao da versao 1.1"
+            git push
+          else
+            echo "As evidências já estão atualizadas."
+          fi

@@ -1,23 +1,29 @@
-APRESENTAÇÃO / NARRAÇÃO SUGERIDA — ESTOQUEFÁCIL
-Duração do vídeo-base: cerca de 38 a 40 segundos; formato MP4, 1280 × 720.
+ROTEIRO DE DEMONSTRAÇÃO — ESTOQUEFÁCIL 1.1
+Duração-alvo: 45 a 55 segundos. Formato: MP4, 1280 × 720.
 
-0–4 s — [Mostre o painel]
-“Este é o EstoqueFácil, um sistema de controle de estoque para uma loja de panelas.”
+0–5 s — VISÃO GERAL
+“Este é o EstoqueFácil, um sistema de controle de estoque para uma loja de panelas e utensílios.”
 
-4–14 s — [Abra Novo produto, preencha e confirme]
-“Aqui eu consigo cadastrar um produto com código, categoria, preço e quantidade mínima.”
+5–15 s — PRODUTOS E CADASTRO
+“Na tela de produtos, posso cadastrar um item informando nome, SKU, categoria, preço e estoque mínimo. Também consigo editar ou excluir um produto.”
 
-14–25 s — [Abra Movimentar e registre entrada e saída]
-“Também registro entradas e saídas. O sistema valida a quantidade e não permite retirar mais unidades que o estoque disponível.”
+15–25 s — ENTRADA
+“Para registrar uma entrada, seleciono o produto, informo a quantidade e confirmo. O saldo é atualizado e a movimentação fica registrada.”
 
-25–34 s — [Marque Estoque baixo e utilize a pesquisa]
-“Ele destaca os itens que precisam de reposição e permite pesquisar produtos por nome ou código.”
+25–34 s — SAÍDA
+“Também posso registrar saídas. O sistema valida a quantidade e impede retirar mais unidades do que o estoque disponível.”
 
-34–40 s — [Volte ao painel]
-“As movimentações ficam registradas e os dados são salvos localmente no navegador.”
+34–43 s — PESQUISA E ALERTAS
+“A lista permite pesquisar por nome, código ou categoria e filtrar os produtos que chegaram ao estoque mínimo.”
 
-DICAS
-- Fale com naturalidade e adapte a duração à sua velocidade; o vídeo entregue precisa ter no máximo 60 segundos.
-- O MP4 fornecido mostra interações reais na aplicação em navegador isolado e está sem narração; você pode gravar sua voz por cima, se desejar.
-- Não diga que o projeto tem banco de dados remoto, login ou integração com marketplaces: essas funcionalidades não existem nesta versão.
-- Não afirme que o repositório já foi publicado até confirmar seu endereço no GitHub.
+43–52 s — HISTÓRICO
+“Na tela de movimentações, consulto o histórico e filtro por produto ou pelo tipo de operação.”
+
+52–55 s — ENCERRAMENTO
+“Os dados desta versão ficam salvos localmente no navegador.”
+
+ORIENTAÇÕES
+- O vídeo deve mostrar a aplicação executando, não apenas código ou imagens estáticas.
+- O arquivo de demonstração automatizada é sem narração. Se desejar, grave a própria voz sobre a demonstração.
+- Não afirme que existe banco de dados remoto, login, multiusuário ou integração com marketplaces: essas funções não fazem parte desta versão.
+- A duração final deve ser inferior a 60 segundos.
