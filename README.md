@@ -9,12 +9,13 @@ Protótipo funcional de controle de estoque para uma pequena loja de panelas e u
 
 ## Funcionalidades implementadas
 
-- **Cadastrar e editar** produtos, com nome, SKU, categoria, preço, estoque inicial e mínimo;
-- **Registrar entradas e saídas** de mercadorias, com validação do saldo disponível;
+- **Cadastrar, editar e excluir** produtos, com nome, SKU, categoria, preço, estoque inicial e mínimo;
+- **Registrar entradas e saídas** de mercadorias, com seleção do produto e validação do saldo disponível;
 - **Buscar** itens por nome, SKU ou categoria;
 - **Filtrar estoque baixo**, quando o saldo está no mínimo ou abaixo;
 - **Consultar painel** com produtos, unidades, valor estimado e alertas;
-- **Visualizar histórico** das últimas cinco movimentações;
+- **Consultar o histórico completo** de movimentações, com pesquisa por produto ou SKU e filtro por tipo;
+- **Acessar telas separadas** de visão geral, produtos e movimentações pela navegação lateral;
 - **Exportar** a listagem em CSV.
 
 ## Executar localmente
@@ -35,7 +36,7 @@ Requisito: Node.js 20+.
 node --test
 ```
 
-A revisão de 14/11/2026 contabilizou **21 testes automatizados aprovados** sobre cadastro, edição, movimentação, bloqueios de entradas inválidas, busca, indicadores e exportação.
+A suíte de testes cobre cadastro, edição, movimentação, validações, busca, indicadores e exportação. Execute os testes localmente antes de publicar alterações.
 
 ## Organização do projeto
 
@@ -69,6 +70,6 @@ Os dados são **de demonstração** e ficam no `localStorage`; limpar os dados d
 
 O trabalho exige PDF com o endereço do repositório, vídeo MP4 de até um minuto e código público ou acesso ao professor. O documento final inclui o URL acima.
 
-O histórico inicial contém oito commits incrementais realizados em 14/11/2026. Seus autores estão registrados como `Autor do projeto` (identidade genérica de preparação do pacote). O histórico não deve ser retrodatado ou reescrito para aparentar uma cronologia diferente. Para registrar suas contribuições futuras, configure nome e e-mail próprios no GitHub Desktop e realize alterações efetivas, com commits semânticos nas datas em que ocorrerem.
+O histórico do repositório registra as alterações realizadas no projeto. Configure seu nome e e-mail no Git antes de registrar contribuições próprias. Mantenha as mensagens de commit claras e não altere datas ou autoria de alterações anteriores.
 
 Consulte [`docs/CHECKLIST_ENUNCIADO.md`](docs/CHECKLIST_ENUNCIADO.md) para os requisitos e [`docs/PUBLICAR_NO_GITHUB.md`](docs/PUBLICAR_NO_GITHUB.md) para atualizar os arquivos por meio do GitHub Desktop. A revisão, a autoria e a coerência entre código, documentação e demonstração são essenciais para a avaliação.
